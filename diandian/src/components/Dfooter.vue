@@ -18,7 +18,7 @@
     }
   }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .footer {
   position: fixed;
   bottom: 0;

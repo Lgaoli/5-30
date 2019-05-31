@@ -7,7 +7,7 @@
 </template>
 <style lang="scss" >
 .header{
-    background-color: pink;
+    background-color: #EA5A49;
     height: 1.875rem;
     line-height: 1.875rem;
     position: fixed;
