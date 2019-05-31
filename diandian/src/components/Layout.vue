@@ -1,32 +1,25 @@
 <template>
   <div class="Layout">
     <Dheader></Dheader>
-    <div class="main">
-  <Dswiper></Dswiper> 
-    </div>
+    <Dmain></Dmain>
     <Dfooter :activeIndex="0"></Dfooter>
   </div>
 </template>
 
 <script>
-import Dheader from '../components/Dheader'
-import Dfooter from '../components/Dfooter'
-import Dswiper from '../components/Dswiper'
+import Dheader from "../components/Dheader";
+import Dfooter from "../components/Dfooter";
+import Dmain from "../components/Dmain";
 export default {
-  name: 'Layout',
-  components:{
+  name: "Layout",
+  components: {
     Dheader,
     Dfooter,
-    Dswiper
-  },
-
-}
+    Dmain
+  }
+};
 </script>
 <style lang="scss">
-.main{
-  margin-top: 1.875rem;
-  height: 100rem;
-}
 </style>
 
 

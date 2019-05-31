@@ -20,7 +20,8 @@
     "vue": "^2.5.2",
     "vue-awesome-swiper": "^2.6.7",
     "vue-router": "^3.0.1",
-    "vue-swipe": "^2.4.0"
+    "vue-swipe": "^2.4.0",
+    "vuescroll": "^4.13.0-beta"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
