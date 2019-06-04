@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
 import Dheader from "../components/Dheader";
 import Dfooter from "../components/Dfooter";
 import Dmain from "../components/Dmain";

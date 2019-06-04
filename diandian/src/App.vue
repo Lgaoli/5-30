@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <router-view/>
   </div>
 </template>
@@ -11,7 +11,11 @@ export default {
 </script>
 
 <style>
-#app {
-
+@import './common/iconf/iconfont.css';
+@import './uitls/base.css';
+*{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
 }
 </style>

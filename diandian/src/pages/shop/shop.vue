@@ -1,7 +1,7 @@
 <template>
   <div>
-      这是我的页面
-      <Dfooter :activeIndex="3"></Dfooter>
+      这是商城页面
+      <Dfooter :activeIndex="2"></Dfooter>
   </div>
 </template>
 <script>
@@ -12,4 +12,3 @@ export default {
   }
 };
 </script>
-

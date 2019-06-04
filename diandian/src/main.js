@@ -4,12 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-
 import './uitls/rem'
-import './styles/base.scss'
+import Axios from 'axios'
+Vue.prototype.$axios = Axios
 Vue.config.productionTip = false
 Vue.use(VueAwesomeSwiper)
-
 // require styles
 import 'swiper/dist/css/swiper.css'
 /* eslint-disable no-new */
