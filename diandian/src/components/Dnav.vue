@@ -1,7 +1,9 @@
 <template>
   <div class="nav">
     <van-tabs @click="onClick" v-model="items.cat_id">
-      <van-tab v-for="(item,index) in items" :key="index" :title="item.name"></van-tab>
+      <van-tab v-for="(item,index) in items" :key="index" :title="item.name" >
+      
+      </van-tab>
     </van-tabs>
   </div>
 </template>
@@ -55,6 +57,7 @@ export default {
           });
       }
     },
+
     cat_id() {
       return console.log(this.$store.state);
     }
