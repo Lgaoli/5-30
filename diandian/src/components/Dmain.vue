@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-    <Dnav></Dnav>
     <Dswiper></Dswiper>
     <Dsudoku></Dsudoku>
     <Dgotop></Dgotop>
@@ -10,14 +9,13 @@
 <script>
 import Dsudoku from '../components/Sudoku'
 import Dswiper from "../components/Dswiper";
-import Dnav from "../components/Dnav";
+
 import Dgotop from "../components/Dgotop";
 import Drecently from "../components/recently";
 export default {
   components: {
     Dswiper,
     Dgotop,
-    Dnav,
     Drecently,
     Dsudoku
   },
@@ -41,7 +39,6 @@ export default {
 
 <style lang="scss">
 .main {
-  margin-top: 5.625rem;
   margin-bottom: 5.625rem;
 }
 </style>

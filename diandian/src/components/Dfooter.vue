@@ -9,8 +9,8 @@
       <span>分类</span>
     </routerLink>
     <routerLink class="footer-nav" to="/shop" :class="{active:(activeIndex==2)}">
-      <i class="iconfont">&#xe6c7;</i>
-      <span>商城</span>
+      <i class="iconfont">&#xe60a;</i>
+      <span>分享</span>
     </routerLink>
     <routerLink class="footer-nav" to="/My" :class="{active:(activeIndex==3)}">
       <i class="iconfont">&#xe636;</i>

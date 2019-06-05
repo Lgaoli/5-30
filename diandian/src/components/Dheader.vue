@@ -26,7 +26,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  z-index: 99;
+  z-index: 9999;
   font-size: 1.3125rem;
   .header-nav {
     display: block;

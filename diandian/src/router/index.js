@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Layout from '@/components/Layout'
+
 const Home = r => require.ensure([], () => r(require('../pages/Home/Home.vue')), 'Home')
 const Catalog = r => require.ensure([], () => r(require('../pages/Catalog/Catalog.vue')), 'My')
 const My = r => require.ensure([], () => r(require('../pages/My/My.vue')), 'My')
 const shop = r => require.ensure([], () => r(require('../pages/shop/shop.vue')), 'shop')
 const Search = r => require.ensure([], () => r(require('../pages/Search/Search.vue')), 'Search')
+const Detail = r => require.ensure([], () => r(require('../pages/detail/detail.vue')), 'Detail')
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -31,6 +32,10 @@ export default new Router({
       path: '/Search',
       name: 'Search',
       component: Search
+    },{
+      path: '/Detail',
+      name: 'Detail',
+      component:Detail
     },
 
   ]
