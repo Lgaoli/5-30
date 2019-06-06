@@ -13,6 +13,7 @@
         </router-link>
       </div>
     </div>
+
     <div class="detail-main">
       <swiper :options="swiperOption">
         <swiper-slide v-for="(item,index) in detileswiper" :key="index">
@@ -20,6 +21,47 @@
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination" style="text-align: right;"></div>
       </swiper>
+      <div class="detail-main-main">
+        <div class="vip" style="background:#fafafa">
+          <div class="vipmain">
+            <div class="dredge-vip" style="background:#fb7c37">
+              <p>开通会员</p>
+            </div>
+            <div class="vipmain1">
+              <div class="vipmain1-T">
+                <div class="vipmain1-text" style="    padding-right:7.625rem;">
+                  <p>立马享受最高5.8折优惠</p>
+                </div>
+                <div class="vipmain1-text1">
+                  <i class="iconfont">&#xe632;</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="shopdetall">
+          <div v-for="(items,indexs) in shopdetall" :key="indexs">
+            <div class="shopmoney">
+              <span class="supply_price">供货价：￥ {{items.supply_price}}</span>
+              <span class="shop_price">市场价：￥{{items.shop_price}}</span>
+            </div>
+            <div class="share">
+              <span>
+                <i class="iconfont">&#xe63e;</i>
+                分享
+              </span>
+            </div>
+            <div class="shopname">
+              <p style="font-weight:600">{{items.goods_name}}</p>
+            </div>
+            <div class="goods_sales" style="padding:0.95rem">
+              <div class="goods_sale_text" style="  text-decoration: line-through;">原价:{{items.shop_price}}</div>
+              <div class="goods_sale_text">库存量:{{items.store_count}}</div>
+              <div class="goods_sale_text">销量:{{items.good_sales}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,7 +78,8 @@ export default {
         speed: 1000 //滑动速度
         // delay:1000
       },
-      detileswiper: []
+      detileswiper: [],
+      shopdetall: []
     };
   },
   created() {
@@ -45,8 +88,10 @@ export default {
     this.$axios
       .get("https://api.ddjingxuan.cn/api/v2/goods/" + newsID)
       .then(function(res) {
-        console.log(res);
+        // console.log(res);
         that.detileswiper = res.data.banner;
+        that.shopdetall.push(res.data.detail);
+        console.log(that);
       })
       .catch(function(error) {
         console.log(error);
@@ -60,10 +105,10 @@ export default {
       this.$axios
         .get("https://api.ddjingxuan.cn/api/v2/comment/1645" + newsID)
         .then(function(res) {
-          console.log(res);
+          // console.log(res);
           if (res.data.lenght > 0) {
           } else {
-            console.log("暂时没有该商品的评论");
+            // console.log("暂时没有该商品的评论");
           }
         })
         .catch(function(error) {
@@ -75,12 +120,23 @@ export default {
 </script>
 <style lang="scss">
 .detail-header {
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
   height: 4.5rem;
   line-height: 4.5rem;
-  font-size: 1.9375rem;
-  background: #fafafa;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  z-index: 9999;
+  font-size: 1.9375rem;
+  z-index: 999;
+
   i {
     color: #060606;
     font-size: 2.125rem;
@@ -98,13 +154,83 @@ export default {
     line-height: 4.5rem;
   }
 }
+
 .detail-main {
+  margin-top: 4.5rem;
   .swiper-container {
     height: 30.57rem;
     img {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
+    }
+  }
+  .vip {
+    .vipmain {
+      display: flex;
+      justify-content: flex-start;
+      padding: 1.8125rem;
+      .dredge-vip {
+        display: inline-block;
+
+        border-top-left-radius: 10%;
+        border-bottom-left-radius: 10%;
+        p {
+          color: #ffd9ad;
+          font-size: 1.4375rem;
+          padding: 0.89rem;
+        }
+      }
+      .vipmain1 {
+        display: inline-block;
+        background: #f5f5f5;
+        margin-left: -0.225rem;
+        border-top-right-radius: 10%;
+        border-bottom-right-radius: 10%;
+        .vipmain1-T {
+          color: #fc7a33;
+          display: flex;
+          justify-content: space-evenly;
+          padding: 0.89rem;
+
+          i {
+            font-size: 1.75rem;
+          }
+        }
+      }
+    }
+  }
+  .shopdetall {
+    padding: 1.189rem;
+    .shopmoney {
+      .supply_price {
+        color: #ff7441;
+        font-size: 1.496rem;
+        font-weight: 600;
+        margin-right: 3.75rem;
+      }
+      .shop_price {
+        color: #ccc;
+        font-size: 0.65rem;
+        text-decoration: line-through;
+      }
+    }
+    .share {
+      padding: 0.863rem;
+      text-align: right;
+      span {
+        padding: 0.958rem;
+        background: #dedede;
+        border-radius: 6.25rem;
+      }
+    }
+    .goods_sales{
+      display: flex;
+      justify-content: space-between;
+      div{
+        color: #ccc;
+
+      }
     }
   }
 }
