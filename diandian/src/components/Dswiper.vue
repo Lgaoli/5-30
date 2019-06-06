@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <swiper :options="swiperOption">
+    <swiper :options="swiperOption" >
       <swiper-slide v-for="(item,index) in swiperList" :key="index">
         <img :src="item.img" class="swiper-img">
       </swiper-slide>
@@ -23,9 +23,7 @@ export default {
         speed: 1000 //滑动速度
         // delay:1000
       },
-      swiperList: [
-        '1'
-      ]
+      swiperList: []
     };
   },
   created() {
@@ -33,7 +31,7 @@ export default {
   },
   methods: {
     swiper() {
-      var that=this
+      var that = this;
       this.$axios
         .get("https://api.ddjingxuan.cn/api/v2/banner")
         .then(function(res) {
@@ -57,6 +55,9 @@ export default {
   img {
     width: 100%;
     height: 100%;
+  }
+  .swiper-pagination-bullet-active{
+    background: #ef7634;
   }
 }
 </style>

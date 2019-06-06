@@ -21,23 +21,25 @@
             <div class="shopss">
               <div class="rec-list-text">
                 <p>{{item.goods_name}}</p>
+              </div>
+         
+             <div class="rec-list-buy">
+              <div class="price">
                 <span class="supply_price">￥{{item.supply_price}}</span>
-                <span class="shop_price">原价：￥{{item.shop_price}}</span>
+                <span class="shop_price">原价:￥{{item.shop_price}}</span>
               </div>
-              <div class="rec-list-buy">
+              <div class="buy">
                 <p>{{item.good_sales}}人购买</p>
-                <div class="buy">
-                  <router-link :to="{path:'/Detail',query:{id:item.goods_id}}" class="around">
-                    <img src="../assets/img/首页01_11.jpg" alt>
-                  </router-link>
-                </div>
+                <router-link :to="{path:'/Detail',query:{id:item.goods_id}}" class="around">
+                  <img src="../assets/img/首页01_11.jpg" alt>
+                </router-link>
               </div>
+            </div>
             </div>
           </li>
         </ul>
       </div>
     </div>
-
 
     <Dgotop></Dgotop>
   </div>
@@ -78,8 +80,8 @@ export default {
         that.items = that.items.concat(res.data);
       })
       .catch(function(error) {
-         that.shop.length=='0';
-        console.log('暂时没有此商品分类的商品');
+        that.shop.length == "0";
+        console.log("暂时没有此商品分类的商品");
       });
   },
 
@@ -130,51 +132,50 @@ export default {
 .rec-list {
   padding: 0.625rem;
   .rec-list-li {
+    display: flex;
+    justify-content: space-between;
     padding: 0.3125rem;
     margin-top: 0.625rem;
     border: #ccc 0.0625rem solid;
-    border-radius: 5%;
     .rec-list-img {
-      text-align: center;
+      width: 7.9375rem;
+      float: left;
       img {
-
-        height: 6.25rem;
-        box-sizing: border-box;
+        width: 100%;
       }
     }
     .shopss {
-      display: flex;
-      justify-content: space-around;
-
+      width: 21.5rem;
       .rec-list-text {
-        padding: 0.625rem;
-        display: inline-block;
-        width: 15.625rem;
-
-        .supply_price {
-          font-size: 1.59rem;
-          color: #e6162d;
-          margin-right: 0.625rem;
-        }
-        .shop_price {
-          font-size: 0.8125rem;
-          color: #ccc;
-        }
+        height: 3rem;
         p {
-          font-size: 0.735rem;
-          overflow: hidden;
           display: -webkit-box;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
-          width: 100%;
+          overflow: hidden;
         }
       }
+
       .rec-list-buy {
-        display: inline-block;
-        font-size: 0.8125rem;
-        color: #ccc;
-        img {
-          height: 3.125rem;
+        display: flex;
+        justify-content: space-between;
+        .price {
+          .supply_price {
+            color: #ff7441;
+            font-size: 1.396rem;
+            font-weight: 600;
+          }
+          .shop_price {
+            color: #ccc;
+            font-size: 0.65rem;
+            text-decoration: line-through;
+          }
+        }
+        .buy {
+          width: 6.25rem;
+          img {
+            width: 100%;
+          }
         }
       }
     }

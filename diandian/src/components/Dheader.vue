@@ -3,18 +3,44 @@
     <div class="header-search" style>
       <div class="header-nav" id="header-search" to>
         <div class="search-m">
-          <i class="iconfont icon-Search"></i>
-
+          <i class="iconfont">&#xe601;</i>
+          <input
+            type="text"
+            @input="setAuthor($event)"
+            name
+            id
+            style=" 
+           margin-top:-0.4975rem; width:90%;"
+          >
         </div>
       </div>
     </div>
     <div class="header-nav">
       <routerLink class="header-nav" to="/shop">
-        <i class="iconfont icon-htmal5icon29" style="color:#ccc"></i>
+        <i class="iconfont icon-htmal5icon29" style="color:#ccc;   margin-left: .625rem"></i>
       </routerLink>
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      inputstr: ""
+    };
+  },
+  methods: {
+    setAuthor(event) {
+        console.log(event)
+      this.$store.commit("newAuthor", event.data);
+    }
+  },
+  computed: {
+    
+  }
+};
+</script>
+
 <style lang="scss" scope>
 .header {
   border-bottom: 1px solid #ccc;
@@ -49,6 +75,7 @@
       color: #a9a9;
       position: absolute;
       right: 0;
+      overflow: hidden;
       span {
         font-size: 1.25rem;
       }
