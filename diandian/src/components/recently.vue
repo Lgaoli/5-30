@@ -59,10 +59,9 @@ export default {
 </script>
 <style lang="scss">
 .recently {
-  padding: 1.25rem;
   margin-bottom: 4.625rem;
   .rec-list {
-    padding: 0.625rem;
+
     .rec-list-li {
       display: flex;
       justify-content: space-between;

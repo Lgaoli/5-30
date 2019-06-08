@@ -42,8 +42,8 @@
         <div class="shopdetall">
           <div v-for="(items,indexs) in shopdetall" :key="indexs">
             <div class="shopmoney">
-              <span class="supply_price">供货价：￥ {{items.supply_price}}</span>
-              <span class="shop_price">市场价：￥{{items.shop_price}}</span>
+              <span class="supply_price">优惠价：￥ {{items.supply_price}}</span>
+              <span class="shop_price">原价：￥{{items.shop_price}}</span>
             </div>
             <div class="share">
               <span>
@@ -55,10 +55,59 @@
               <p style="font-weight:600">{{items.goods_name}}</p>
             </div>
             <div class="goods_sales" style="padding:0.95rem">
-              <div class="goods_sale_text" style="  text-decoration: line-through;">原价:{{items.shop_price}}</div>
+              <div
+                class="goods_sale_text"
+                style="  text-decoration: line-through;"
+              >原价:{{items.shop_price}}</div>
               <div class="goods_sale_text">库存量:{{items.store_count}}</div>
               <div class="goods_sale_text">销量:{{items.good_sales}}</div>
             </div>
+            <div class="detail-main-main-content">
+              <van-tabs v-model="active">
+                <van-tab title="商品介绍" v-html="items.goods_content"></van-tab>
+                <van-tab title="评论" v-for="(items,indexs) in detilcomment" :key="indexs">
+                  <div v-if="detilcomment.length>0">
+                    {{items.goods_rank}}
+
+                    <van-rate v-model="items.goods_rank" />
+                  </div>
+                  <div v-else>暂时没有商品评论</div>
+                </van-tab>
+              </van-tabs>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-footer">
+      <div class="detail-footer1">
+        <div class="service">
+          <div class="service1">
+            <a>
+              <i class="iconfont">&#xe61c;</i>
+              <span>客服</span>
+            </a>
+          </div>
+
+          <div class="collect">
+            <a>
+              <i class="iconfont">&#xe613;</i>
+              <span>客服</span>
+            </a>
+          </div>
+        </div>
+        <div class="detail-buy">
+          <div style="    border-top-left-radius: 6.25rem; border-bottom-left-radius: 6.25rem;">
+            <p>加入购物车</p>
+          </div>
+          <div
+            style="
+    border-top-right-radius: 6.25rem;
+    border-bottom-right-radius: 6.25rem;
+          background: #ef7634;  
+          "
+          >
+            <p>立即购买</p>
           </div>
         </div>
       </div>
@@ -66,6 +115,12 @@
   </div>
 </template>
 <script>
+import Vue from "vue";
+import { Tab, Tabs } from "vant";
+import { Rate } from "vant";
+Vue.use(Tab)
+  .use(Tabs)
+  .use(Rate);
 export default {
   data() {
     return {
@@ -78,8 +133,10 @@ export default {
         speed: 1000 //滑动速度
         // delay:1000
       },
-      detileswiper: [],
-      shopdetall: []
+      detileswiper: [], //商品轮播图
+      shopdetall: [], //商品信息
+      detilcomment: [], //商品评论
+      active: 0
     };
   },
   created() {
@@ -88,10 +145,9 @@ export default {
     this.$axios
       .get("https://api.ddjingxuan.cn/api/v2/goods/" + newsID)
       .then(function(res) {
-        // console.log(res);
+        console.log(res);
         that.detileswiper = res.data.banner;
         that.shopdetall.push(res.data.detail);
-        console.log(that);
       })
       .catch(function(error) {
         console.log(error);
@@ -103,13 +159,10 @@ export default {
       var newsID = this.$route.query.id;
       var that = this;
       this.$axios
-        .get("https://api.ddjingxuan.cn/api/v2/comment/1645" + newsID)
+        .get("https://api.ddjingxuan.cn/api/v2/comment/1645/" + newsID)
         .then(function(res) {
-          // console.log(res);
-          if (res.data.lenght > 0) {
-          } else {
-            // console.log("暂时没有该商品的评论");
-          }
+          that.detilcomment = res.data;
+          console.log(that.detilcomment[0].goods_rank);
         })
         .catch(function(error) {
           console.log(error);
@@ -124,7 +177,6 @@ export default {
   background-color: #fff;
   height: 4.5rem;
   line-height: 4.5rem;
-  position: fixed;
   top: 0;
   width: 100%;
   display: -webkit-box;
@@ -132,10 +184,10 @@ export default {
   display: flex;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
+  position: fixed;
   justify-content: space-between;
   z-index: 9999;
   font-size: 1.9375rem;
-  z-index: 999;
 
   i {
     color: #060606;
@@ -157,6 +209,7 @@ export default {
 
 .detail-main {
   margin-top: 4.5rem;
+  margin-bottom: 4.4375rem;
   .swiper-container {
     height: 30.57rem;
     img {
@@ -224,13 +277,74 @@ export default {
         border-radius: 6.25rem;
       }
     }
-    .goods_sales{
+    .goods_sales {
       display: flex;
       justify-content: space-between;
-      div{
+      div {
         color: #ccc;
-
       }
+    }
+    .shopname {
+      padding: 0.7rem;
+    }
+    .detail-main-main-content {
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+.detail-footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #ccc;
+  z-index: 999;
+  background: #fff;
+  .detail-footer1 {
+    display: flex;
+    justify-content: flex-start;
+    height: 4.4375rem;
+    padding: 0.625rem;
+    .service {
+      display: flex;
+      flex: 1;
+      div {
+        flex: 0.4;
+      }
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .detail-buy {
+      flex: 1;
+      border: #ef7634 1px solid;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 6.25rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      div {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        p {
+        }
+      }
+    }
+    a {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      font-size: 12px;
     }
   }
 }

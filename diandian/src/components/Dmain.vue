@@ -22,19 +22,19 @@
               <div class="rec-list-text">
                 <p>{{item.goods_name}}</p>
               </div>
-         
-             <div class="rec-list-buy">
-              <div class="price">
-                <span class="supply_price">￥{{item.supply_price}}</span>
-                <span class="shop_price">原价:￥{{item.shop_price}}</span>
+
+              <div class="rec-list-buy">
+                <div class="price">
+                  <span class="supply_price">￥{{item.supply_price}}</span>
+                  <span class="shop_price">原价:￥{{item.shop_price}}</span>
+                </div>
+                <div class="buy">
+                  <p>{{item.good_sales}}人购买</p>
+                  <router-link :to="{path:'/Detail',query:{id:item.goods_id}}" class="around">
+                    <img src="../assets/img/首页01_11.jpg" alt>
+                  </router-link>
+                </div>
               </div>
-              <div class="buy">
-                <p>{{item.good_sales}}人购买</p>
-                <router-link :to="{path:'/Detail',query:{id:item.goods_id}}" class="around">
-                  <img src="../assets/img/首页01_11.jpg" alt>
-                </router-link>
-              </div>
-            </div>
             </div>
           </li>
         </ul>
@@ -130,7 +130,7 @@ export default {
   margin-bottom: 5.625rem;
 }
 .rec-list {
-  padding: 0.625rem;
+  padding: 1.25rem;
   .rec-list-li {
     display: flex;
     justify-content: space-between;
