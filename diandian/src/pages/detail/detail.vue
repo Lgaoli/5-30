@@ -62,14 +62,19 @@
               <div class="goods_sale_text">库存量:{{items.store_count}}</div>
               <div class="goods_sale_text">销量:{{items.good_sales}}</div>
             </div>
-            <div class="detail-main-main-content">
+            <div class="detail-main-main-content" style="overflow: hidden;">
               <van-tabs v-model="active">
                 <van-tab title="商品介绍" v-html="items.goods_content"></van-tab>
-                <van-tab title="评论" v-for="(items,indexs) in detilcomment" :key="indexs">
+                <van-tab title="评论" v-for="(items,indexs) in detilcomment" :key="indexs" style="       padding: 0.5rem;">
                   <div v-if="detilcomment.length>0">
-                    {{items.goods_rank}}
-
-                    <van-rate v-model="items.goods_rank" />
+                    <div class="comment">
+                      <div class="comment_user">
+                        <div>{{items.user.user_name}}</div>
+                        <div>{{items.add_time}}</div>
+                      </div>
+                      <div class="comment_main">{{items.content}}</div>
+                    </div>
+                    <van-rate v-model="items.goods_rank" readonly/>
                   </div>
                   <div v-else>暂时没有商品评论</div>
                 </van-tab>
@@ -88,7 +93,6 @@
               <span>客服</span>
             </a>
           </div>
-
           <div class="collect">
             <a>
               <i class="iconfont">&#xe613;</i>
@@ -101,11 +105,7 @@
             <p>加入购物车</p>
           </div>
           <div
-            style="
-    border-top-right-radius: 6.25rem;
-    border-bottom-right-radius: 6.25rem;
-          background: #ef7634;  
-          "
+            style=" border-top-right-radius: 6.25rem;border-bottom-right-radius: 6.25rem;background: #ef7634;  "
           >
             <p>立即购买</p>
           </div>
@@ -116,8 +116,8 @@
 </template>
 <script>
 import Vue from "vue";
-import { Tab, Tabs } from "vant";
-import { Rate } from "vant";
+import { Tab, Tabs, Rate } from "vant";
+
 Vue.use(Tab)
   .use(Tabs)
   .use(Rate);
@@ -145,7 +145,6 @@ export default {
     this.$axios
       .get("https://api.ddjingxuan.cn/api/v2/goods/" + newsID)
       .then(function(res) {
-        console.log(res);
         that.detileswiper = res.data.banner;
         that.shopdetall.push(res.data.detail);
       })
@@ -162,7 +161,7 @@ export default {
         .get("https://api.ddjingxuan.cn/api/v2/comment/1645/" + newsID)
         .then(function(res) {
           that.detilcomment = res.data;
-          console.log(that.detilcomment[0].goods_rank);
+          console.log(res.data);
         })
         .catch(function(error) {
           console.log(error);
@@ -222,7 +221,7 @@ export default {
     .vipmain {
       display: flex;
       justify-content: flex-start;
-      padding: 1.8125rem;
+      padding: 0.8125rem;
       .dredge-vip {
         display: inline-block;
 
@@ -285,9 +284,19 @@ export default {
       }
     }
     .shopname {
+      font-size: 1.1rem;
       padding: 0.7rem;
     }
     .detail-main-main-content {
+  
+      .comment {
+        .comment_user {
+          display: flex;
+          justify-content: space-between;
+        }.comment_main{
+          padding: 0.3rem;
+        }
+      }
       img {
         width: 100%;
         height: 100%;
@@ -317,6 +326,10 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 1.25rem;
+        i {
+          font-size: 1.25rem;
+        }
       }
     }
 

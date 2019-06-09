@@ -1,7 +1,7 @@
 <template>
   <div class="recently">
-    <div>
-      <div class="recently-header">
+    <div class="recently-header">
+      <div class="recently-header1">
         <img src="../assets/img/今日推荐.png" alt>
         <p class="rec-title">今日推荐</p>
       </div>
@@ -61,7 +61,6 @@ export default {
 .recently {
   margin-bottom: 4.625rem;
   .rec-list {
-
     .rec-list-li {
       display: flex;
       justify-content: space-between;
@@ -113,18 +112,22 @@ export default {
     }
   }
   .recently-header {
-    height: 2.375rem;
-    line-height: 2.375rem;
-    display: inline-block;
-    img {
-      width: 2.4375rem;
+    padding: 1.25rem 1.25rem 0 1.25rem;
+    .recently-header1 {
       height: 2.375rem;
-    }
-    p {
-      display: inline;
-      font-size: 1.125rem;
+      line-height: 2.375rem;
+      display: inline-block;
+      img {
+        width: 2.4375rem;
+        height: 2.375rem;
+      }
+      p {
+        display: inline;
+        font-size: 1.125rem;
+      }
     }
   }
+
   .rec-more {
     display: inline-block;
     font-size: 13px;

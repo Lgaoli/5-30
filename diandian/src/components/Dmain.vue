@@ -10,7 +10,7 @@
       <Dsudoku></Dsudoku>
       <Drecently></Drecently>
     </div>
-    <div v-if="shop.length=='0'||selectedId=='1'">暂时没有此商品分类的商品</div>
+    <div v-else-if="shop.length=='0'||selectedId=='1'">暂时没有此商品分类的商品</div>
     <div v-else>
       <div class="rec-list">
         <ul>
