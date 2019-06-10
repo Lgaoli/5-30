@@ -18,4 +18,7 @@ export default {
   padding: 0;
   text-decoration: none;
 }
+a{
+  color: #000;
+}
 </style>

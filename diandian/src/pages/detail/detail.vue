@@ -43,14 +43,14 @@
           <div v-for="(items,indexs) in shopdetall" :key="indexs">
             <div class="shopmoney">
               <span class="supply_price">优惠价：￥ {{items.supply_price}}</span>
-              <span class="shop_price">原价：￥{{items.shop_price}}</span>
+              <div class="share">
+                <span>
+                  <i class="iconfont">&#xe63e;</i>
+                  分享
+                </span>
+              </div>
             </div>
-            <div class="share">
-              <span>
-                <i class="iconfont">&#xe63e;</i>
-                分享
-              </span>
-            </div>
+
             <div class="shopname">
               <p style="font-weight:600">{{items.goods_name}}</p>
             </div>
@@ -65,16 +65,18 @@
             <div class="detail-main-main-content" style="overflow: hidden;">
               <van-tabs v-model="active">
                 <van-tab title="商品介绍" v-html="items.goods_content"></van-tab>
-                <van-tab title="评论" v-for="(items,indexs) in detilcomment" :key="indexs" style="       padding: 0.5rem;">
+                <van-tab title="评论" style="       padding: 0.5rem;">
                   <div v-if="detilcomment.length>0">
-                    <div class="comment">
-                      <div class="comment_user">
-                        <div>{{items.user.user_name}}</div>
-                        <div>{{items.add_time}}</div>
+                    <div v-for="(items,indexs) in detilcomment" :key="indexs" class="commentitems">
+                      <div class="comment">
+                        <div class="comment_user">
+                          <div style>{{items.user.user_name}}</div>
+                          <div style="color:#ccc">{{items.add_time}}</div>
+                        </div>
+                        <div class="comment_main">{{items.content}}</div>
                       </div>
-                      <div class="comment_main">{{items.content}}</div>
+                      <van-rate v-model="items.goods_rank" readonly/>
                     </div>
-                    <van-rate v-model="items.goods_rank" readonly/>
                   </div>
                   <div v-else>暂时没有商品评论</div>
                 </van-tab>
@@ -102,12 +104,17 @@
         </div>
         <div class="detail-buy">
           <div style="    border-top-left-radius: 6.25rem; border-bottom-left-radius: 6.25rem;">
-            <p>加入购物车</p>
+            <router-link :to="{path:'/shop1',query:{id:this.shopdetall[0]}}">
+              <p>加入购物车</p>
+            </router-link>
           </div>
+
           <div
-            style=" border-top-right-radius: 6.25rem;border-bottom-right-radius: 6.25rem;background: #ef7634;  "
+            style=" border-top-right-radius: 6.25rem;border-bottom-right-radius: 6.25rem;background: #ef7634; "
           >
-            <p>立即购买</p>
+            <router-link :to="{path:'/shop',query:{id:this.shopdetall[0]}}">
+              <p style="color:#fff">立即购买</p>
+            </router-link>
           </div>
         </div>
       </div>
@@ -142,11 +149,13 @@ export default {
   created() {
     var newsID = this.$route.query.id;
     var that = this;
+
     this.$axios
       .get("https://api.ddjingxuan.cn/api/v2/goods/" + newsID)
       .then(function(res) {
         that.detileswiper = res.data.banner;
         that.shopdetall.push(res.data.detail);
+        // console.log(that.shopdetall)
       })
       .catch(function(error) {
         console.log(error);
@@ -156,12 +165,13 @@ export default {
   methods: {
     comment() {
       var newsID = this.$route.query.id;
+
       var that = this;
       this.$axios
-        .get("https://api.ddjingxuan.cn/api/v2/comment/1645/" + newsID)
+        .get("https://api.ddjingxuan.cn/api/v2/comment/" + newsID)
         .then(function(res) {
           that.detilcomment = res.data;
-          console.log(res.data);
+          // console.log(that.detilcomment)
         })
         .catch(function(error) {
           console.log(error);
@@ -255,6 +265,9 @@ export default {
   .shopdetall {
     padding: 1.189rem;
     .shopmoney {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       .supply_price {
         color: #ff7441;
         font-size: 1.496rem;
@@ -288,12 +301,12 @@ export default {
       padding: 0.7rem;
     }
     .detail-main-main-content {
-  
       .comment {
         .comment_user {
           display: flex;
           justify-content: space-between;
-        }.comment_main{
+        }
+        .comment_main {
           padding: 0.3rem;
         }
       }
@@ -334,6 +347,7 @@ export default {
     }
 
     .detail-buy {
+      line-height: 4.4375rem;
       flex: 1;
       border: #ef7634 1px solid;
       display: flex;

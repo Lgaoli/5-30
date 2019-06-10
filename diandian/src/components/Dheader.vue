@@ -10,7 +10,7 @@
             name
             id
             style=" 
-           margin-top:-0.4975rem; width:90%;"
+           margin-top:-0.4975rem; width:87%;"
           >
         </div>
       </div>

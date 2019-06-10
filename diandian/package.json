@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "jquery": "^3.4.1",
     "ly-tab": "^2.1.2",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
@@ -24,6 +23,7 @@
     "vue": "^2.5.2",
     "vue-awesome-swiper": "^2.6.7",
     "vue-jsonp": "^0.1.8",
+    "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
     "vue-swipe": "^2.4.0",
     "vue-tabbar-slide": "^1.9.5",
