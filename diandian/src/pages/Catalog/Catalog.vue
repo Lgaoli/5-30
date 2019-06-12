@@ -1,5 +1,5 @@
 <template>
-  <div>这是啥页面  <Dfooter :activeIndex="1"></Dfooter></div>
+  <div>这是啥页面  <Dfooter :activeIndex="2"></Dfooter></div>
 
 </template>
 

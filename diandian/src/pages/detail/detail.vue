@@ -43,12 +43,30 @@
           <div v-for="(items,indexs) in shopdetall" :key="indexs">
             <div class="shopmoney">
               <span class="supply_price">优惠价：￥ {{items.supply_price}}</span>
-              <div class="share">
+              <div class="share" @click="show1=true">
                 <span>
                   <i class="iconfont">&#xe63e;</i>
                   分享
                 </span>
               </div>
+              <van-popup v-model="show1" position="bottom" :overlay="true">
+                <div>
+                  <div class="popup" style="text-aligh:center;padding:0.8rem">
+                    <div style="">
+                      <img src="../../assets/img/share_ic_weixin.png" alt style="  width: 4.6875rem;height:4.6875rem">
+                      <p style="padding:1.2rem">微信好友</p>
+                    </div>
+                    <div>
+                      <img src="../../assets/img/share_ic_moments.png" style="  width: 4.6875rem;height4.6875rem">
+                      <p style="padding:1.2rem">微信朋友圈</p>
+                    </div>
+                  </div>
+                  <div style="width:100%;
+          height: 0.6rem;
+          background:#f7f7f7"></div>
+                  <div class="close" @click="show1=false">取消</div>
+                </div>
+              </van-popup>
             </div>
 
             <div class="shopname">
@@ -103,17 +121,21 @@
           </div>
         </div>
         <div class="detail-buy">
-          <div style="    border-top-left-radius: 6.25rem; border-bottom-left-radius: 6.25rem;">
-            <router-link :to="{path:'/shop1',query:{id:this.shopdetall[0]}}">
+          <div @click="show=true">
+            <div
+              @click="addlist(detail)"
+              style="border-top-left-radius: 6.25rem; border-bottom-left-radius: 6.25rem;font-size: 1.25rem;"
+            >
               <p>加入购物车</p>
-            </router-link>
+            </div>
           </div>
+          <van-popup v-model="show">加入购物车成功</van-popup>
 
           <div
-            style=" border-top-right-radius: 6.25rem;border-bottom-right-radius: 6.25rem;background: #ef7634; "
+            style=" border-top-right-radius: 6.25rem;border-bottom-right-radius: 6.25rem;background: #ef7634;font-size: 1.25rem; "
           >
             <router-link :to="{path:'/shop',query:{id:this.shopdetall[0]}}">
-              <p style="color:#fff">立即购买</p>
+              <p style="color:#fff;font-size: 1.25rem;">立即购买</p>
             </router-link>
           </div>
         </div>
@@ -123,11 +145,14 @@
 </template>
 <script>
 import Vue from "vue";
-import { Tab, Tabs, Rate } from "vant";
+import { Tab, Tabs, Rate, Popup } from "vant";
+import { mapState, mapActions } from "vuex";
 
 Vue.use(Tab)
   .use(Tabs)
-  .use(Rate);
+  .use(Rate)
+  .use(Popup);
+
 export default {
   data() {
     return {
@@ -143,19 +168,25 @@ export default {
       detileswiper: [], //商品轮播图
       shopdetall: [], //商品信息
       detilcomment: [], //商品评论
-      active: 0
+      detail: [],
+      active: 0,
+      show: false,
+      show1: false
     };
   },
   created() {
     var newsID = this.$route.query.id;
     var that = this;
-
     this.$axios
       .get("https://api.ddjingxuan.cn/api/v2/goods/" + newsID)
       .then(function(res) {
         that.detileswiper = res.data.banner;
         that.shopdetall.push(res.data.detail);
-        // console.log(that.shopdetall)
+
+        that.detail = that.shopdetall.concat(that.detileswiper);
+
+        // console.log(that.detail);
+        // console.log(that.detail[1].img_url);
       })
       .catch(function(error) {
         console.log(error);
@@ -163,9 +194,10 @@ export default {
     this.comment();
   },
   methods: {
+    addlist(detail) {},
+    ...mapActions(["addlist"]),
     comment() {
       var newsID = this.$route.query.id;
-
       var that = this;
       this.$axios
         .get("https://api.ddjingxuan.cn/api/v2/comment/" + newsID)
@@ -176,6 +208,11 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    }
+  },
+  computed: {
+    count() {
+      return this.$store.state;
     }
   }
 };
@@ -229,6 +266,7 @@ export default {
   }
   .vip {
     .vipmain {
+    
       display: flex;
       justify-content: flex-start;
       padding: 0.8125rem;
@@ -268,6 +306,18 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .van-popup--bottom {
+        text-align: center;
+        .popup {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          text-align: center;
+        }
+        .close {
+          padding: 1.1rem;
+        }
+      }
       .supply_price {
         color: #ff7441;
         font-size: 1.496rem;
@@ -362,7 +412,7 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
+
         p {
         }
       }

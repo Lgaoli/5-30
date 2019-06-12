@@ -4,11 +4,11 @@
       <i class="iconfont">&#xe633;</i>
       <span>主页</span>
     </routerLink>
-    <routerLink class="footer-nav" to="/Catalog" :class="{active:(activeIndex==1)}">
+    <routerLink class="footer-nav" to="/shop" :class="{active:(activeIndex==1)}">
       <i class="iconfont">&#xe64c;</i>
       <span>分类</span>
     </routerLink>
-    <routerLink class="footer-nav" to="/shop" :class="{active:(activeIndex==2)}">
+    <routerLink class="footer-nav" to="/Catalog" :class="{active:(activeIndex==2)}">
       <i class="iconfont">&#xe7b5;</i>
       <span>分享</span>
     </routerLink>

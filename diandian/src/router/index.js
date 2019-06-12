@@ -8,6 +8,8 @@ const shop = r => require.ensure([], () => r(require('../pages/shop/shop.vue')),
 const shop1 = r => require.ensure([], () => r(require('../pages/shop/shop1.vue')), 'shop1')
 const Search = r => require.ensure([], () => r(require('../pages/Search/Search.vue')), 'Search')
 const Detail = r => require.ensure([], () => r(require('../pages/detail/detail.vue')), 'Detail')
+const shippingAddress = r => require.ensure([], () => r(require('../pages/shippingAddress/shippingAddress.vue')), 'shippingAddress')
+const AddressEdit = r => require.ensure([], () => r(require('../pages/shippingAddress/AddressEdit.vue')), 'AddressEdit')
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -42,6 +44,15 @@ export default new Router({
       name: 'Detail',
       component:Detail
     },
+    ,{
+      path: '/shippingAddress',
+      name: 'shippingAddress',
+      component:shippingAddress
+    },{
+      path: '/AddressEdit',
+      name: 'AddressEdit',
+      component:AddressEdit
+    }
 
   ]
 })

@@ -1,40 +1,32 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import createPersistedState from "vuex-persistedstate"
 Vue.use(Vuex)
 
+
+
 const store = new Vuex.Store({
-    state:{
-        goodsList:localStorage["goodsList"]?JSON.parse(localStorage["goodsList"]): []  
+    plugins: [createPersistedState()],
+    state: {
+        car: [],
+        shopdetall: []
     },
-    getters:{
-        sum:state=>{
-            var total=0;
-            state.goodsList.forEach((item)=>{
-                if(item.select){
-                    total+=item.price*item.number
-                }             
-            })
-            return total
-        },
-        goddsNumber:state=>{
-            return state.goodsList.length
+    getters: {
+        addlist: state => state.shopdetall,
+
+    },
+    mutations: {
+        addlist(state, [shopdetall]) {
+            state.shopdetall = shopdetall
         }
     },
-    mutations:{
-        addGoods:(state,data)=>{
-            state.goodsList.push(data);
-            localStorage.setItem("goodsList",JSON.stringify(state.goodsList));                      
+
+    actions: {
+        addlist({ commit, state }, products) {
+            console.log(products)
+            commit('addlist', products)    // 提交到mutations中处理    
         },
-        deleteGoods(state,index){
-            state.goodsList.splice(index,1);        
-            localStorage.setItem("goodsList",JSON.stringify(state.goodsList));
-        },
-        updateGoods(state,data){
-            const {index,key,value}=data;
-            state.goodsList[index][key]=value;  
-            localStorage.setItem("goodsList",JSON.stringify(state.goodsList));
-        }
+
     }
 })
 

@@ -23,7 +23,7 @@
                 </div>
                 <div class="shopss">
                   <div class="rec-list-text">
-                    <p>{{item.goods_name}}</p>
+                    <p style="font-weight: 600;">{{item.goods_name}}</p>
                   </div>
 
                   <div class="rec-list-buy">
@@ -32,7 +32,7 @@
                       <span class="shop_price">原价:￥{{item.shop_price}}</span>
                     </div>
                     <div class="buy">
-                      <p>{{item.good_sales}}人购买</p>
+                      <p style=" color: #ccc;">{{item.good_sales}}人购买</p>
                       <router-link :to="{path:'/Detail',query:{id:item.goods_id}}" class="around">
                         <img src="../assets/img/首页01_11.jpg" alt>
                       </router-link>
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <Dgotop></Dgotop>
+    <!-- <Dgotop></Dgotop> -->
   </div>
 </template>
 <script>
@@ -154,6 +154,8 @@ export default {
       }
       .shopss {
         width: 21.5rem;
+        font-size: 1.3rem;
+
         .rec-list-text {
           height: 3rem;
           p {
@@ -168,6 +170,7 @@ export default {
           display: flex;
           justify-content: space-between;
           .price {
+                padding: 0.6rem;
             .supply_price {
               color: #ff7441;
               font-size: 1.396rem;
@@ -175,7 +178,7 @@ export default {
             }
             .shop_price {
               color: #ccc;
-              font-size: 0.65rem;
+              font-size: 1.25rem;
               text-decoration: line-through;
             }
           }
