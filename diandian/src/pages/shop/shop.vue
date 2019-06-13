@@ -42,9 +42,9 @@
     </div>
 
     <div class="detail-footer">
-      <van-submit-bar :price="parseFloat(Num*100)" button-text="提交订单">
+      <van-submit-bar :price="parseFloat(Num*100)" button-text="提交订单" @submit="test">
         <van-checkbox v-model="checkedNames">全选</van-checkbox>
-        <span slot="tip">你的收货地址不支持同城送,</span>
+        <!-- <span slot="tip">你的收货地址不支持同城送,</span> -->
       </van-submit-bar>
     </div>
   </div>
@@ -96,17 +96,19 @@ export default {
 
     test1() {
       //点击-
-
       this.value -= 1;
-      this.Num = this.Num * 1 - this.$route.query.id.supply_price * 1;
+      // this.Num = this.Num * 1 - this.$route.query.id.supply_price * 1;
+      this.Num = this.Num * 1 - this.count.shopdetall.supply_price * 1;
     },
     test() {
       //点击+
 
       this.value += 1;
-      this.Num = this.Num * 1 + this.$route.query.id.supply_price * 1;
-
-      console.log(this);
+      this.Num = this.count.shopdetall.supply_price * 1;
+      console.log(this.Num);
+      // this.Num = this.Num * 1 + this.$route.query.id.supply_price * 1;
+      this.Num = this.Num * 1 + this.count.shopdetall.supply_price * 1;
+      console.log(this.Num);
     },
 
     //              商品类减减
@@ -116,15 +118,9 @@ export default {
       cart.value++;
     },
     //              删除商品
-    delete_num(cart) {
-      this.check_goods.splice(this.check_goods.indexOf(cart), 1);
-      this.cart_list.splice(this.cart_list.indexOf(cart), 1);
-    },
+    delete_num(cart) {},
 
-    com() {
-      var newsID = this.$route.query.id.goods_id;
-      var that = this;
-    }
+    com() {}
   },
   watch: {}
 };

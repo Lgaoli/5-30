@@ -17,6 +17,7 @@
         show-set-default
         show-search-result
         :search-result="searchResult"
+        :address-Info="AddressInfo"
         @save="onSave"
         @delete="onDelete"
         @change-detail="onChangeDetail"
@@ -35,38 +36,47 @@ export default {
     return {
       areaList,
       searchResult: [],
-  
+      AddressInfo: []
     };
   },
-created() {
- 
-},
-computed: {
-},
+  created() {},
+  computed: {},
   methods: {
-    onSave() {
-     console.log(this)
-    },
-    onDelete() {
- 
-    },
-    onvlue(value){
-      if(value==false){
-        this.onshow= 0
-        console.log(this.onshow)
-      }else{
-       this.onshow= 1
-        console.log(this.onshow)
+    onDelete() {},
+    onvlue(value) {
+      if (value == false) {
+        this.onshow = 0;
+        console.log(this.onshow);
+      } else {
+        this.onshow = 1;
+        console.log(this.onshow);
       }
       value;
-
-      
     },
     onChangeDetail(val) {
+      //详细地址
       if (val) {
-        this.searchResult = [];
+        // console.log(val);
       } else {
         this.searchResult = [];
+      }
+    },
+    onSave(val) {
+      //获取表单所有信息
+      //       addressDetail: "元岗街道慧通产业园B9栋"//详细地址
+      // areaCode: "440106"
+      // city: "广州市"//城市
+      // country: ""
+      // county: "天河区"//区
+      // isDefault: true  //是否设为默认地址
+      // name: "张三"
+      // postalCode: "000000"//邮政编号
+      // province: "广东省"//省
+      // tel: "12312312312"
+      if (val) {
+        console.log(val);
+        this.$router.go(-1);
+      } else {
       }
     }
   }
