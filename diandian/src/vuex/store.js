@@ -9,7 +9,8 @@ const store = new Vuex.Store({
     plugins: [createPersistedState()],
     state: {
         addCart: [],
-        shipping: []
+        shipping: [],
+        token: ''
     },
     getters: {
         add: state => state,
@@ -75,6 +76,14 @@ const store = new Vuex.Store({
 
     },
     mutations: {
+        set_token(state, token) {
+            state.token = token
+            sessionStorage.token = token
+        },
+        del_token(state) {
+            state.token = ''
+            sessionStorage.removeItem('token')
+        },
         //添加到购物车并判断有没有，有则++
         addCart(state, data) {
             let Boff = true

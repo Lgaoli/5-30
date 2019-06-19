@@ -28,25 +28,28 @@ export default {
       show: true
     };
   },
-beforeCreate() {
-         console.log(this)
-      this.$axios.get("https://api.ddjingxuan.cn/api/v2/code/user")
-        .then(function(res) {
-          console.log(res);
-          
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-
-},
+  beforeCreate() {},
   created() {
- 
-  },
-  methods: {
- 
-  },
+    console.log(window.location.href);
+    let url =
+      "http://pub.hqyulin.com/?token=921186a225bca7200eab8ff3aa931699#/";
+    let str = url.split("?")[1];
 
+    let str1 = str.split("=")[1].split("#")[0];
+    console.log(str1);
+    this.$store.commit("set_token", str1["str1"]);
+    if (this.$store.state.token) {
+      // this.$router.push("/");
+      console.log(this.$store.state.token);
+    } else {
+      // this.$router.replace("/login");
+      console.log('没有')
+    }
+
+
+
+  },
+  methods: {}
 };
 </script>
 <style lang="scss">
