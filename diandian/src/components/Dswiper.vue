@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <swiper :options="swiperOption" >
+    <swiper :options="swiperOption">
       <swiper-slide v-for="(item,index) in swiperList" :key="index">
         <img :src="item.img" class="swiper-img">
       </swiper-slide>
@@ -36,28 +36,15 @@ export default {
         .get("https://api.ddjingxuan.cn/api/v2/banner")
         .then(function(res) {
           that.swiperList = res.data;
+          console.log(that);
         })
         .catch(function(error) {
-          console.log(error);
+          console.log(that);
         });
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-.wrapper {
-  height: 19.25rem;
-  box-sizing: border-box;
-  .swiper-container {
-    width: 100%;
-    height: 100%;
-  }
-  img {
-    width: 100%;
-    height: 100%;
-  }
-  .swiper-pagination-bullet-active{
-    background: #ef7634;
-  }
-}
+
 </style>

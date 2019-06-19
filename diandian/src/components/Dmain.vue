@@ -1,58 +1,82 @@
 <template>
-  <div class="main">
-    <div class="nav">
-      <van-tabs @click="onClick" v-model="selectedId">
-        <van-tab v-for="(item,index) in items" :key="index" :title="item.name"></van-tab>
-      </van-tabs>
+  <div>
+    <div :class="{'cover':show}">
+      <van-loading size="5.1rem" color="#1989fa" vertical>加载中...</van-loading>
     </div>
-    <div v-if="selectedId=='0'">
-      <Dswiper></Dswiper>
-      <Dsudoku></Dsudoku>
-      <Dhot></Dhot>
-      <Drecently></Drecently>
-    </div>
-    <div v-else-if="shop.length=='0'||selectedId=='1'">暂时没有此商品分类的商品</div>
-    <div v-else>
-      <div class="rec-list">
-        <ul>
-          <li class="rec-list-li" v-for="(item,index) in shop" :key="index">
-            <router-link :to="{path:'/Detail',query:{id:item.goods_id}}" class="rec-list-a">
-              <div class="rec-list-a1">
-                <div class="rec-list-img">
-                  <img :src="item.img_url" alt>
-                </div>
-                <div class="shopss">
-                  <div class="rec-list-text">
-                    <p style="font-weight: 600;">{{item.goods_name}}</p>
-                  </div>
 
-                  <div class="rec-list-buy">
-                    <div class="price">
-                      <span class="supply_price">￥{{item.supply_price}}</span>
-                      <span class="shop_price">原价:￥{{item.shop_price}}</span>
-                    </div>
-                    <div class="buy">
-                      <p style=" color: #ccc;">{{item.good_sales}}人购买</p>
-                      <router-link :to="{path:'/Detail',query:{id:item.goods_id}}" class="around">
-                        <img src="../assets/img/首页01_11.jpg" alt>
-                      </router-link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </router-link>
-          </li>
-        </ul>
+    <div class="main">
+      <div class="nav">
+        <van-tabs @click="onClick" v-model="selectedId">
+          <van-tab v-for="(item,index) in items" :key="index" :title="item.name"></van-tab>
+        </van-tabs>
       </div>
-    </div>
+      <div v-if="selectedId=='0'">
+        <div class="wrapper">
+          <swiper :options="swiperOption">
+            <swiper-slide v-for="(item,index) in swiperList" :key="index">
+              <img :src="item.img" class="swiper-img">
+            </swiper-slide>
+            <div
+              class="swiper-pagination"
+              slot="pagination"
+              style="text-align: right;  background: none"
+            ></div>
+          </swiper>
+        </div>
+        <Dsudoku></Dsudoku>
+        <Dhot></Dhot>
+        <Drecently></Drecently>
+      </div>
+      <div
+        class
+        v-else-if="shop.length=='0'||selectedId=='1'"
+        style="display:flex;justify-content: center;"
+      >暂时没有此商品分类的商品</div>
+      <div v-else>
+        <div class="rec-list">
+          <ul>
+            <li class="rec-list-li" v-for="(item,index) in shop" :key="index">
+              <router-link :to="{path:'/Detail',query:{id:item.goods_id}}" class="rec-list-a">
+                <div class="rec-list-a1">
+                  <div class="rec-list-img">
+                    <img :src="item.img_url" alt>
+                  </div>
+                  <div class="shopss">
+                    <div class="rec-list-text">
+                      <p style="font-weight: 600;">{{item.goods_name}}</p>
+                    </div>
 
-    <!-- <Dgotop></Dgotop> -->
+                    <div class="rec-list-buy">
+                      <div class="price">
+                        <span class="supply_price">￥{{item.supply_price}}</span>
+                        <span class="shop_price">原价:￥{{item.shop_price}}</span>
+                      </div>
+                      <div class="buy">
+                        <p style=" color: #ccc;">{{item.good_sales}}人购买</p>
+                        <router-link :to="{path:'/Detail',query:{id:item.goods_id}}" class="around">
+                          <img src="../assets/img/首页01_11.jpg" alt>
+                        </router-link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <Dgotop></Dgotop> -->
+    </div>
   </div>
 </template>
 <script>
 import Vue from "vue";
-import { Tab, Tabs } from "vant";
-Vue.use(Tab).use(Tabs);
+import { Tab, Tabs, Popup, Loading } from "vant";
+Vue.use(Tab)
+  .use(Tabs)
+  .use(Popup)
+  .use(Loading);
 import Dsudoku from "../components/Sudoku";
 import Dswiper from "../components/Dswiper";
 import Dgotop from "../components/Dgotop";
@@ -68,6 +92,17 @@ export default {
   },
   data() {
     return {
+      show: false,
+      swiperOption: {
+        // 参数选项,显示小点
+        pagination: ".swiper-pagination",
+        autoplayDisableOnInteraction: false, //手动滑动之后还能自动播放
+        loop: true, //循环
+        autoplay: 2000, //每张播放时长3秒，自动播放
+        speed: 1000 //滑动速度
+        // delay:1000
+      },
+      swiperList: [],
       hackReset: false,
       selectedId: 0,
       items: [{ name: "首页", cat_id: 0 }],
@@ -90,6 +125,7 @@ export default {
         that.shop.length == "0";
         console.log("暂时没有此商品分类的商品");
       });
+    that.swiper();
   },
 
   mounted() {
@@ -99,6 +135,19 @@ export default {
     window.removeEventListener("scroll", this.scrollToTop);
   },
   methods: {
+    swiper() {
+      var that = this;
+      this.$axios
+        .get("https://api.ddjingxuan.cn/api/v2/banner")
+        .then(function(res) {
+          that.swiperList = res.data;
+
+          that.show = false;
+        })
+        .catch(function(error) {
+          that.show = true;
+        });
+    },
     windowScroll() {
       //滚动条距离页面顶部的距离
       let scrollTop =
@@ -117,10 +166,11 @@ export default {
           })
           .then(function(res) {
             that.shop = res.data;
-            console.log();
             that.hackReset = true;
           })
-          .catch(function(error) {});
+          .catch(function(error) {
+            that.show = false;
+          });
       }
     },
 
@@ -132,9 +182,36 @@ export default {
 </script>
 
 <style lang="scss">
+.cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  background-color: rgba(0, 0, 0, 0.8);
+}
 .main {
-  margin-top: 5.625rem;
+  // margin-top: 5.625rem;
   margin-bottom: 5.625rem;
+  .wrapper {
+    height: 19.25rem;
+    box-sizing: border-box;
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+    .swiper-pagination-bullet-active {
+      background: #ef7634;
+    }
+  }
 }
 .rec-list {
   padding: 1.25rem;
@@ -144,7 +221,7 @@ export default {
     border: #ccc 0.0625rem solid;
     .rec-list-a1 {
       display: flex;
-      justify-content: space-between; 
+      justify-content: space-between;
       .rec-list-img {
         width: 7.9375rem;
         float: left;
@@ -170,7 +247,7 @@ export default {
           display: flex;
           justify-content: space-between;
           .price {
-                padding: 0.6rem;
+            padding: 0.6rem;
             .supply_price {
               color: #ff7441;
               font-size: 1.396rem;

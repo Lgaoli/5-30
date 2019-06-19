@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="order-form-header">
-      <div class="back">
+      <div class="back" style="text-align: right;">
         <router-link to="/shop">
           <i class="iconfont">&#xe771;</i>
         </router-link>
@@ -24,9 +24,7 @@
           style="    display: flex;
     justify-content: space-around;
     align-items: center;
-    "
-      
-        >
+    " >
           <van-radio :name="item"    >
             <div class="address"  @click="back()">
               <div style="padding-top: 0.6rem">
@@ -128,7 +126,7 @@ export default {
     font-size: 2.125rem;
   }
   .back {
-    flex: 0.3;
+width: 3.125rem;
     text-align: center;
   }
   .shop {

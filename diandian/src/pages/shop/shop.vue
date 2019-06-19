@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="font-size:1.3rem">
     <!-- <div v-for="(items,indexs) in item" :key="indexs">{{items}}</div> -->
     <div class="detail-header">
       <div class="back">
@@ -27,23 +27,97 @@
           height: 0.6rem;
           background:#f7f7f7"></div>
       <div class="shopping-cart-main">
-        <div v-if="!shopdetall.length">购物车好空啊</div>
-        <div v-else>
-          <div v-for="(item,index) in shoplist" :key="index">
+        <div v-if="addCart.length">
+          <div class="shopping-main" v-for="(item,index) in  addCart" :key="index">
+            <!-- <div v-for="(itemss,indexss) in item" :key="indexss">
+              <div class="shopping-cart-main1">
+                <div class="shopping-cart-img">{{itemss.goods_name}}</div>
+                <div class="shopping-cart-img">{{itemss.count}}</div>
+              </div>
+            </div>-->
+            <div class="shopping-cart-main1">
+              <!-- <van-checkbox v-model="item.index" @click="CheckItem(item)" class="checkedBox"></van-checkbox> -->
+              <div class="checkedBox van-checkbox">
+                <div
+                  class="van-checkbox__icon van-checkbox__icon--round"
+                  :class="{'van-checkbox__icon--checked':item.checked}"
+                  @click="checkeds(item.goods_id)"
+                >
+                  <i class="van-icon van-icon-success">
+                    <!---->
+                  </i>
+                </div>
+              </div>
+              <div style="
+    display: flex;
+    justify-content: space-between;
+">
+                <div class="shoping-cart-img">
+                  <img :src="item.shopimg" alt>
+                </div>
+                <div class="shopname">
+                  <div class style="height:2.8rem">
+                    <p>{{item.goods_name}}</p>
+                  </div>
+
+                  <div class="shoppr">
+                    <div class="supply_price" style="display:flex;align-items: center;">
+                      <p
+                        style="font-size: 1.8125rem;
+                        font-weight:600;
+    color: rgb(239, 118, 52);"
+                      >现价:￥{{item.supply_price}}</p>
+                      <p
+                        style="font-size:1.1rem;color:#ccc;text-decoration:line-through;margin-left: 1.4rem;"
+                      >原价:￥{{item.shop_price}}</p>
+                    </div>
+                    <div class="count">
+                      <div>
+                        <van-stepper
+                          v-model="item.count"
+                          integer
+                          min="1"
+                          max="10"
+                          @plus="add_num(item.goods_id)"
+                          @minus="min_num(item.goods_id)"
+                          disable-input
+                        />
+                      </div>
+                      <div class="del" @click="del(item.goods_id)">
+                        <i class="iconfont">&#xe61b;</i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div style="width:100%;
           height: 0.6rem;
           background:#f7f7f7"></div>
-            <div class="shopping-cart-main1">
-              <div class="shopping-cart-img"></div>
-            </div>
           </div>
+        </div>
+        <div v-else>
+          <div>空空如也</div>
         </div>
       </div>
     </div>
 
-    <div class="detail-footer">
-      <van-submit-bar :price="parseFloat(Num*100)" button-text="提交订单" @submit="test">
-        <van-checkbox v-model="checkedNames">全选</van-checkbox>
+    <div class="detail-footer" style="border-">
+      <!--:price="parseFloat(shoplists[index].shop_price*100)" -->
+      <van-submit-bar button-text="下订单" :price="checkedmoney*100" @submit="indent">
+        <!--         :disabled="{flase:checkedcount<0}" -->
+        <div class="van-checkbox">
+          <div
+            class="van-checkbox__icon van-checkbox__icon--round"
+            :class="{'van-checkbox__icon--checked':checkedAll}"
+            @click="allcheck(checkedAll)"
+          >
+            <i class="van-icon van-icon-success">
+              <!---->
+            </i>
+          </div>
+          <span class="van-checkbox__label">全选</span>
+        </div>
         <!-- <span slot="tip">你的收货地址不支持同城送,</span> -->
       </van-submit-bar>
     </div>
@@ -52,11 +126,20 @@
 <script>
 import Vue from "vue";
 import { mapState, mapGetters } from "vuex";
-import { Checkbox, CheckboxGroup, Stepper, SubmitBar } from "vant";
-Vue.use(Checkbox);
-Vue.use(CheckboxGroup);
-Vue.use(Stepper);
-Vue.use(SubmitBar);
+import {
+  Checkbox,
+  CheckboxGroup,
+  Stepper,
+  SubmitBar,
+  Card,
+  SwipeCell
+} from "vant";
+Vue.use(Checkbox)
+  .use(CheckboxGroup)
+  .use(Stepper)
+  .use(SubmitBar)
+  .use(Card)
+  .use(SwipeCell);
 import Dfooter from "../../components/Dfooter";
 export default {
   components: {
@@ -64,68 +147,71 @@ export default {
   },
   data() {
     return {
-      shoplist: [],
       value: 1,
       Num: {},
       checkedNames: [],
-      checked: false
+      checked: false,
+      dialogshow: false
     };
   },
-  created() {
-    var that = this;
-    this.shoplist = this.$store.state;
-    console.log(that.shoplist.shopdetall);
-    this.com();
-    this.test1();
-  },
+  created() {},
   computed: {
-    ...mapState(["shopdetall"]),
+    //购物车的商品
+    addCart() {
+      return this.$store.state.addCart;
+    },
+    //总数
     count() {
-      return this.$store.state;
+      return this.$store.getters.totleCount;
+    },
+    //总价
+    zmoney() {
+      return this.$store.getters.totlemoney;
+    },
+    //全选
+    checkedAll() {
+      return this.$store.getters.allcheck;
+    },
+    //选中数量
+    checkedcount() {
+      return this.$store.getters.checkedcount;
+    },
+    //选中价格
+    checkedmoney() {
+      return this.$store.getters.checkedmoney;
     }
   },
   methods: {
-    changeAllChecked: function() {
-      //全选或者全不选
-      if (this.checked) {
-        this.checkedNames = this.shopdetall;
-      } else {
-        this.checkedNames = [];
-      }
+    indent() {
+      this.$router.push("/Indent");
+    },
+    //删除
+    del(id) {
+      console.log(id);
+      this.$store.commit("delCart", id);
+    },
+    //增加
+    add_num(id) {
+      console.log("增加" + id);
+      this.$store.commit("plusCart", id);
+    },
+    min_num(id) {
+      console.log("减少" + id);
+      this.$store.commit("minCart", id);
     },
 
-    test1() {
-      //点击-
-      this.value -= 1;
-      // this.Num = this.Num * 1 - this.$route.query.id.supply_price * 1;
-      this.Num = this.Num * 1 - this.count.shopdetall.supply_price * 1;
-    },
-    test() {
-      //点击+
-
-      this.value += 1;
-      this.Num = this.count.shopdetall.supply_price * 1;
-      console.log(this.Num);
-      // this.Num = this.Num * 1 + this.$route.query.id.supply_price * 1;
-      this.Num = this.Num * 1 + this.count.shopdetall.supply_price * 1;
-      console.log(this.Num);
-    },
-
-    //              商品类减减
-
-    //              商品累加
-    add_num(cart) {
-      cart.value++;
-    },
-    //              删除商品
-    delete_num(cart) {},
-
-    com() {}
+    checkeds(id) {
+      console.log(id);
+      this.$store.commit("checkGoods", id);
+    }, //全选
+    allcheck(checkedAll) {
+      this.$store.commit("checkedAll", checkedAll);
+    }
   },
   watch: {}
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .detail-header {
   border-bottom: 1px solid #ccc;
   background-color: #fff;
@@ -162,44 +248,68 @@ export default {
 }
 .shopping-cart {
   margin-top: 4.5rem;
+  margin-bottom: 4.5rem;
   .shopping-cart-header {
     background: #fff;
     padding: 1.25rem;
     display: flex;
     justify-content: space-between;
   }
-  .shopping-main {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    .shopping-cart-main1 {
-      display: flex;
-      justify-content: space-around;
-      .shoping-cart-img {
-        width: 6.25rem;
-        height: 6.25rem;
-        img {
-          box-sizing: border-box;
-          width: 100%;
-          height: 100%;
+  .shopping-cart-main {
+    .shopping-main {
+      .shopping-cart-main1 {
+        padding: 0.8rem;
+        align-items: center;
+        display: flex;
+        .shoping-cart-img {
+          padding: 0.5rem;
+          width: 8.25rem;
+          height: 8.25rem;
+          img {
+            box-sizing: border-box;
+
+            height: 100%;
+          }
+          .shoping-cart-de {
+            .shoping-name {
+              padding: 0.375rem;
+            }
+            .shoping-money {
+              padding: 0.375rem;
+              display: flex;
+              justify-content: flex-start;
+            }
+            .Stepper {
+              padding: 0.375rem;
+            }
+          }
         }
-      }
-      .shoping-cart-de {
-        .shoping-name {
-          padding: 0.375rem;
-        }
-        .shoping-money {
-          padding: 0.375rem;
-          display: flex;
-          justify-content: flex-start;
-        }
-        .Stepper {
-          padding: 0.375rem;
+        .shopname {
+          padding-top: 0.625rem;
+          p {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+          }
+          .shoppr {
+            margin-top: 1.25rem;
+            .supply_price {
+            }
+            .count {
+              align-items: center;
+              display: flex;
+
+              .del {
+                margin-left: 6.25rem;
+              }
+            }
+          }
         }
       }
     }
-    .shopping-cart-Main {
-    }
+  }
+  .detail-footer {
   }
 }
 </style>

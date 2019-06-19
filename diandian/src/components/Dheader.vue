@@ -1,7 +1,8 @@
 <template>
   <div class="header">
     <div class="header-search" style>
-      <div class="header-nav" id="header-search" to>
+      <div class="header-nav" id="header-search" >
+        <router-link to="/Search">
         <div class="search-m">
           <i class="iconfont">&#xe601;</i>
           <input
@@ -13,6 +14,7 @@
            margin-top:-0.4975rem; width:87%;"
           >
         </div>
+        </router-link>
       </div>
     </div>
     <div class="header-nav">

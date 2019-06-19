@@ -5,20 +5,60 @@ import App from './App'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import './uitls/rem'
-import Axios from 'axios'
+import axios from 'axios'
 import Vuex from 'vuex'
 import store from './vuex/store'
-Vue.prototype.$axios = Axios
+import wx from 'weixin-jsapi'
+// import ajax from './lib/ajax/Ajax.js'//----------------注意这个地方--axios
+
+
+
+//设置axios为form-data
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.transformRequest = [function (data) {
+  let ret = ''
+  for (let it in data) {
+    ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+  }
+  return ret
+}]
+
+
+Vue.prototype.$axios = axios
+Vue.prototype.$ajax = axios;//---------------------------注意这个地方--axios
 Vue.config.productionTip = false
+// Axios.defaults.withCredentials = true;
 Vue.use(VueAwesomeSwiper)
 Vue.use(Vuex)
 // require styles
 import 'swiper/dist/css/swiper.css'
+// import 'http://res.wx.qq.com/open/js/jweixin-1.4.0.js'
 /* eslint-disable no-new */
+
+
+
+// const router = new VueRouter({
+//   routes
+// })
+
+// router.beforeEach((to, from, next) => {
+//   if (to.path == '/login') {
+//       sessionStorage.removeItem('user');
+//   }
+//   let user = JSON.parse(sessionStorage.getItem('user'));
+//   if (!user && to.path != '/login') {
+//       next({path: '/login'})
+//   } else {
+//       next()
+//   }
+// })
+
+
 new Vue({
   el: '#app',
   router,
-  store,
+  store, wx,
   components: { App },
   template: '<App/>'
 })

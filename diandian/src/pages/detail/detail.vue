@@ -52,12 +52,19 @@
               <van-popup v-model="show1" position="bottom" :overlay="true">
                 <div>
                   <div class="popup" style="text-aligh:center;padding:0.8rem">
-                    <div style="">
-                      <img src="../../assets/img/share_ic_weixin.png" alt style="  width: 4.6875rem;height:4.6875rem">
+                    <div style>
+                      <img
+                        src="../../assets/img/share_ic_weixin.png"
+                        alt
+                        style="  width: 4.6875rem;height:4.6875rem"
+                      >
                       <p style="padding:1.2rem">微信好友</p>
                     </div>
                     <div>
-                      <img src="../../assets/img/share_ic_moments.png" style="  width: 4.6875rem;height4.6875rem">
+                      <img
+                        src="../../assets/img/share_ic_moments.png"
+                        style="  width: 4.6875rem;height4.6875rem"
+                      >
                       <p style="padding:1.2rem">微信朋友圈</p>
                     </div>
                   </div>
@@ -116,14 +123,14 @@
           <div class="collect">
             <a>
               <i class="iconfont">&#xe613;</i>
-              <span>客服</span>
+              <span>收藏</span>
             </a>
           </div>
         </div>
         <div class="detail-buy">
           <div @click="show=true">
             <div
-              @click="addlist(detail)"
+              @click="addCart(shopdetall1)"
               style="border-top-left-radius: 6.25rem; border-bottom-left-radius: 6.25rem;font-size: 1.25rem;"
             >
               <p>加入购物车</p>
@@ -134,7 +141,7 @@
           <div
             style=" border-top-right-radius: 6.25rem;border-bottom-right-radius: 6.25rem;background: #ef7634;font-size: 1.25rem; "
           >
-            <router-link :to="{path:'/shop',query:{id:this.shopdetall[0]}}">
+            <router-link :to="{path:'/shop'}">
               <p style="color:#fff;font-size: 1.25rem;">立即购买</p>
             </router-link>
           </div>
@@ -167,6 +174,7 @@ export default {
       },
       detileswiper: [], //商品轮播图
       shopdetall: [], //商品信息
+      shopdetall1: [], //传进购物车的商品
       detilcomment: [], //商品评论
       detail: [],
       active: 0,
@@ -175,27 +183,14 @@ export default {
     };
   },
   created() {
-    var newsID = this.$route.query.id;
-    var that = this;
-    this.$axios
-      .get("https://api.ddjingxuan.cn/api/v2/goods/" + newsID)
-      .then(function(res) {
-        that.detileswiper = res.data.banner;
-        that.shopdetall.push(res.data.detail);
-
-        that.detail = that.shopdetall.concat(that.detileswiper);
-
-        // console.log(that.detail);
-        // console.log(that.detail[1].img_url);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    this.list();
     this.comment();
   },
   methods: {
-    addlist(detail) {},
-    ...mapActions(["addlist"]),
+    addCart(data) {
+
+      this.$store.commit("addCart", data);
+    },
     comment() {
       var newsID = this.$route.query.id;
       var that = this;
@@ -204,6 +199,23 @@ export default {
         .then(function(res) {
           that.detilcomment = res.data;
           // console.log(that.detilcomment)
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+
+    list() {
+      var newsID = this.$route.query.id;
+      var that = this;
+      this.$axios
+        .get("https://api.ddjingxuan.cn/api/v2/goods/" + newsID)
+        .then(function(res) {
+          that.detileswiper = res.data.banner;
+          that.shopdetall.push(res.data.detail);
+          that.shopdetall1 = res.data.detail;
+          that.$set(that.shopdetall1, "shopimg", that.detileswiper[0].img_url)
+            // console.log(that.shopdetall1);
         })
         .catch(function(error) {
           console.log(error);
@@ -266,7 +278,6 @@ export default {
   }
   .vip {
     .vipmain {
-    
       display: flex;
       justify-content: flex-start;
       padding: 0.8125rem;

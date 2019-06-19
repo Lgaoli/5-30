@@ -63,6 +63,7 @@ export default {
     },
     onSave(val) {
       //获取表单所有信息
+      console.log(val);
       //       addressDetail: "元岗街道慧通产业园B9栋"//详细地址
       // areaCode: "440106"
       // city: "广州市"//城市
@@ -73,11 +74,30 @@ export default {
       // postalCode: "000000"//邮政编号
       // province: "广东省"//省
       // tel: "12312312312"
-      if (val) {
-        console.log(val);
-        this.$router.go(-1);
-      } else {
-      }
+      // if (val) {
+      //   console.log(val);
+      //   this.$router.go(-1);
+      // } else {
+      // }
+      this.$axios({
+        method: "post",
+        url: "https://api.ddjingxuan.cn/api/v2/address",
+        data: {
+          token: "5234155edff0fa93696dd45c4b03cc59",
+          consigner: val.name,
+          phone: val.tel
+          // province:val.province,
+          // city:val.city,
+          // district:val.county,
+          // address:val.addressDetail,
+          // is_default:this.onshow
+        },
+        // headers: {
+        //   "Content-Type": "application/x-www-form-urlencoded",
+        //   Authorization: "Bearer " + "this.token"
+        // }
+      }).then(res => {});
+
     }
   }
 };
