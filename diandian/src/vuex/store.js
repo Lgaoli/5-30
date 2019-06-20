@@ -14,6 +14,14 @@ const store = new Vuex.Store({
     },
     getters: {
         add: state => state,
+        //获取token方法
+        //判断是否有token,如果没有重新赋值，返回给state的token
+        getToken(state) {
+            if (!state.token) {
+                state.token = localStorage.getItem('token')
+            }
+            return state.token
+        },
         //商品总数
         totleCount(state) {
             let count = 0;
@@ -76,14 +84,15 @@ const store = new Vuex.Store({
 
     },
     mutations: {
-        set_token(state, token) {
+        setToken(state, token) {
+            console.log(token)
             state.token = token
-            sessionStorage.token = token
-        },
-        del_token(state) {
+          
+        }, del_token(state) {
             state.token = ''
             sessionStorage.removeItem('token')
         },
+
         //添加到购物车并判断有没有，有则++
         addCart(state, data) {
             let Boff = true

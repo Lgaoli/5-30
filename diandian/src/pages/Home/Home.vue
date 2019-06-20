@@ -28,28 +28,37 @@ export default {
       show: true
     };
   },
-  beforeCreate() {},
-  created() {
-    console.log(window.location.href);
+  beforeCreate() {
     let url =
       "http://pub.hqyulin.com/?token=921186a225bca7200eab8ff3aa931699#/";
     let str = url.split("?")[1];
-
     let str1 = str.split("=")[1].split("#")[0];
-    console.log(str1);
-    this.$store.commit("set_token", str1["str1"]);
+    localStorage.setItem("token", str1, 7200);
+    this.$store.commit("setToken", str1);
+
     if (this.$store.state.token) {
-      // this.$router.push("/");
-      console.log(this.$store.state.token);
+      this.$router.push("/");
     } else {
       // this.$router.replace("/login");
-      console.log('没有')
+      console.log("没有token");
     }
-
-
-
   },
-  methods: {}
+  created() {
+    this.tokend();
+    this.Token();
+  },
+  methods: {
+    tokend() {
+      // console.log(window.location.href);
+    },
+    getTime() {},
+    Token() {}
+  }, //通过computed获取的方式
+  computed: {
+    getToken() {
+      return this.$store.getters.getToken;
+    }
+  }
 };
 </script>
 <style lang="scss">

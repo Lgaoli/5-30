@@ -188,7 +188,6 @@ export default {
   },
   methods: {
     addCart(data) {
-
       this.$store.commit("addCart", data);
     },
     comment() {
@@ -214,8 +213,8 @@ export default {
           that.detileswiper = res.data.banner;
           that.shopdetall.push(res.data.detail);
           that.shopdetall1 = res.data.detail;
-          that.$set(that.shopdetall1, "shopimg", that.detileswiper[0].img_url)
-            // console.log(that.shopdetall1);
+          that.$set(that.shopdetall1, "shopimg", that.detileswiper[0].img_url);
+          // console.log(that.shopdetall1);
         })
         .catch(function(error) {
           console.log(error);
