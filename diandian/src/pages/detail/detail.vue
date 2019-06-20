@@ -222,7 +222,7 @@ export default {
     }
   },
   computed: {
-    count() {
+    goods_num() {
       return this.$store.state;
     }
   }

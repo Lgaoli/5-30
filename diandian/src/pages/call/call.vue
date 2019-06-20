@@ -37,7 +37,7 @@
               style="padding-bottom:1.25rem;padding-right: 1.25rem;padding-left: 1.25rem;;border-bottom: 1px solid #DEDEDE"
             >
               <span class="login_title">短信验证码：</span>
-              <input class="auth_input" type="text" placeholder="输入验证码">
+              <input class="auth_input" type="text" placeholder="输入验证码" v-model="phones">
               <span v-show="sendAuthCode" class="auth_text" @click="getAuthCode">获取验证码</span>
               <span v-show="!sendAuthCode" class="auth_text">
                 <span class="auth_text_blue">{{auth_time}}</span> 秒后重试
@@ -48,7 +48,10 @@
 
         <div style="padding:1.25rem;">
           <div style="padding-right: 1.25rem;padding-bottom: 1.25rem;padding-left: 1.25rem;">
-            <div style="padding:1.25rem;background-color:#F15E0E;border-radius:10px">
+            <div
+              style="padding:1.25rem;background-color:#F15E0E;border-radius:10px"
+              @click="submit"
+            >
               <div style="color:#fff;text-align: center;">
                 <p>绑定手机号码</p>
               </div>
@@ -77,10 +80,9 @@ export default {
     getAuthCode() {
       this.sendAuthCode = false;
       this.auth_time = 60;
-      console.log(this.phone * 1);
-      let url = "https://api.ddjingxuan.cn/api/v2/send/code"
+      // console.log(this.phone * 1);
+      let url = "https://api.ddjingxuan.cn/api/v2/send/code";
       let data = {
-        token: "e4997763ea1aa19f132fbd6dc847c2e9",
         phone: this.phone * 1,
         type: "2"
       };
@@ -99,6 +101,26 @@ export default {
           clearInterval(auth_timetimer);
         }
       }, 1000);
+    },
+    submit() {
+      console.log(this.phones);
+      this.$axios({
+        method: "post",
+        url: "https://api.ddjingxuan.cn/api/v2/user/bind",
+        data: {
+          code_phone: this.phone,
+          code_yzm: this.phones
+        },
+        headers: {
+          token: "47e544eae77faf1f47c6b2da970ae480"
+        }
+      })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };

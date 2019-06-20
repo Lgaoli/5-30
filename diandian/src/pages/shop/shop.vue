@@ -32,7 +32,7 @@
             <!-- <div v-for="(itemss,indexss) in item" :key="indexss">
               <div class="shopping-cart-main1">
                 <div class="shopping-cart-img">{{itemss.goods_name}}</div>
-                <div class="shopping-cart-img">{{itemss.count}}</div>
+                <div class="shopping-cart-img">{{itemss.goods_num}}</div>
               </div>
             </div>-->
             <div class="shopping-cart-main1">
@@ -71,10 +71,10 @@
                         style="font-size:1.1rem;color:#ccc;text-decoration:line-through;margin-left: 1.4rem;"
                       >原价:￥{{item.shop_price}}</p>
                     </div>
-                    <div class="count">
+                    <div class="goods_num">
                       <div>
                         <van-stepper
-                          v-model="item.count"
+                          v-model="item.goods_num"
                           integer
                           min="1"
                           max="10"
@@ -161,7 +161,7 @@ export default {
       return this.$store.state.addCart;
     },
     //总数
-    count() {
+    goods_num() {
       return this.$store.getters.totleCount;
     },
     //总价
@@ -296,7 +296,7 @@ export default {
             margin-top: 1.25rem;
             .supply_price {
             }
-            .count {
+            .goods_num {
               align-items: center;
               display: flex;
 

@@ -26,14 +26,17 @@
           height: 0.6rem;
           background:#f7f7f7"></div>
       <div class="indent-main">
-        <div v-for="(item,index) in checkedgoods" :key="index">
-          <van-card
-            :num="item.count"
-            :price="item.supply_price"
-            :desc="item.goods_name"
-            :thumb="item.shopimg"
-          />
+        <div v-if="checkedgoods.length>0">
+          <div v-for="(item,index) in checkedgoods" :key="index">
+            <van-card
+              :num="item.goods_num"
+              :price="item.supply_price"
+              :desc="item.goods_name"
+              :thumb="item.shopimg"
+            />
+          </div>
         </div>
+        <div v-else style="padding:1.25rem;">暂时无商品</div>
       </div>
       <div style="width:100%;
           height: 0.6rem;
@@ -70,7 +73,11 @@
       <textarea type="text" placeholder="备注信息"></textarea>
     </div>
     <div class="indent-footer">
-      <van-submit-bar :price="(checkedmoney+freight)*100" button-text="提交订单"/>
+      <van-submit-bar
+        :price="(checkedmoney+freight)*100"
+        button-text="提交订单"
+        @submit="SubmitOrderHan"
+      />
     </div>
   </div>
 </template>
@@ -98,7 +105,28 @@ export default {
       return freight;
     }
   },
-  methods: {}
+  methods: {
+    SubmitOrderHan() {
+      let data = {
+        goodData: JSON.stringify(this.checkedgoods)
+      };
+      console.log(data);
+      this.$axios({
+        method: "post",
+        url: "https://api.ddjingxuan.cn/api/v2/order",
+        data: { products: data.goodData },
+        headers: {
+          token: "47e544eae77faf1f47c6b2da970ae480"
+        }
+      })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
 };
 </script>
 

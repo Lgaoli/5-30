@@ -24,17 +24,17 @@ const store = new Vuex.Store({
         },
         //商品总数
         totleCount(state) {
-            let count = 0;
+            let goods_num = 0;
             state.addCart.forEach((good) => {
-                count += good.count
+                goods_num += good.goods_num
             })
-            return count
+            return goods_num
         },
         //商品总价
         totlemoney(state) {
             let supply_price = 0;
             state.addCart.forEach((good) => {
-                supply_price += good.supply_price * good.count
+                supply_price += good.supply_price * good.goods_num
             })
             return supply_price
         },
@@ -53,21 +53,21 @@ const store = new Vuex.Store({
         },
         //选中商品数量
         checkedcount(state) {
-            let count = 0;
+            let goods_num = 0;
             state.addCart.forEach((good) => {
                 if (good.checked) {
-                    count += good.count;
+                    goods_num += good.goods_num;
 
                 }
             })
-            return count
+            return goods_num
         },
         //选中商品价格
         checkedmoney(state) {
             let money = 0;
             state.addCart.forEach((good) => {
                 if (good.checked) {
-                    money += good.count * good.supply_price;
+                    money += good.goods_num * good.supply_price;
                 }
             })
             return money
@@ -98,13 +98,13 @@ const store = new Vuex.Store({
             let Boff = true
             state.addCart.forEach((good) => {
                 if (good.goods_id === data.goods_id) {
-                    good.count++;
+                    good.goods_num++;
                     Boff = false
                 }
             })
             if (Boff) {
                 let goodsData = data
-                Vue.set(goodsData, 'count', 1)
+                Vue.set(goodsData, 'goods_num', 1)
                 Vue.set(goodsData, 'checked', true)
                 state.addCart.push(goodsData)
             }
@@ -127,8 +127,8 @@ const store = new Vuex.Store({
             state.addCart.forEach((good, index) => {
                 console.log(good)
                 if (good.goods_id === id) {
-                    if (good.count >= 10) return
-                    good.count++
+                    if (good.goods_num >= 10) return
+                    good.goods_num++
                     return
                 }
             })
@@ -138,8 +138,8 @@ const store = new Vuex.Store({
             state.addCart.forEach((good, index) => {
                 console.log(good)
                 if (good.goods_id === id) {
-                    if (good.count <= 1) return
-                    good.count--
+                    if (good.goods_num <= 1) return
+                    good.goods_num--
                     return
                 }
             })

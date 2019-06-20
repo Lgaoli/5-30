@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="footer" style="font-size:1.5rem">
     <routerLink class="footer-nav" to="/" :class="{active:(activeIndex==0)}">
       <i class="iconfont">&#xe633;</i>
       <span>主页</span>
@@ -47,7 +47,7 @@ export default {
       }
     span {
       display: block;
-      font-size: 0.4rem;
+      font-size: 1rem;
     
     }
     &.active i{
