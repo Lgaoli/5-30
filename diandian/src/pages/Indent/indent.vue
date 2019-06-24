@@ -109,12 +109,12 @@ export default {
 
   methods: {
     SubmitOrderHan() {
-      console.log(this);
+
       var that=this
       let data = {
         goodData: JSON.stringify(this.checkedgoods)
       };
-      console.log(data);
+
       this.$axios({
         method: "post",
         url: "https://api.ddjingxuan.cn/api/v2/order",
@@ -124,10 +124,10 @@ export default {
         }
       })
         .then(response => {
-          console.log(response);
+          // console.log(response);
         })
         .catch(error => {
-          console.log(error);
+          // console.log(error);
         });
     }
   }

@@ -29,8 +29,7 @@ export default {
     };
   },
   beforeCreate() {
-    let url =
-      "http://pub.hqyulin.com/?token=be9ea809f59ea514b33fa4d6593b75e9#/";
+    let url = window.location.href;
     let str = url.split("?")[1];
     let str1 = str.split("=")[1].split("#")[0];
     localStorage.setItem("token", str1, 7200);
@@ -40,7 +39,7 @@ export default {
       this.$router.push("/");
     } else {
       // this.$router.replace("/login");
-      console.log("没有token");
+
     }
   },
   created() {

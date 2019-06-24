@@ -123,7 +123,7 @@ export default {
       })
       .catch(function(error) {
         that.shop.length == "0";
-        console.log("暂时没有此商品分类的商品");
+        // console.log("暂时没有此商品分类的商品");
       });
     that.swiper();
   },
@@ -175,7 +175,7 @@ export default {
     },
 
     cat_id() {
-      return console.log(this.$store.state);
+      return this.$store.state
     }
   }
 };

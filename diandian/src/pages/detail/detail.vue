@@ -200,7 +200,7 @@ export default {
           // console.log(that.detilcomment)
         })
         .catch(function(error) {
-          console.log(error);
+          // console.log(error);
         });
     },
 
@@ -217,7 +217,7 @@ export default {
           // console.log(that.shopdetall1);
         })
         .catch(function(error) {
-          console.log(error);
+          // console.log(error);
         });
     }
   },

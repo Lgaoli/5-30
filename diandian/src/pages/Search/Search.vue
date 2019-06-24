@@ -82,7 +82,7 @@ export default {
           )
           .then(function(res) {
             that.searchshop = res.data;
-            console.log(that.searchshop);
+            // console.log(that.searchshop);
           })
           .catch(function(error) {
             that.searchshop.length == "0";

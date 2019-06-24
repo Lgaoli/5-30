@@ -226,7 +226,7 @@ export default {
   methods: {
     testlist() {
       var that = this;
-      console.log(that);
+      // console.log(that);
       this.$axios({
         method: "get",
         url: "https://api.ddjingxuan.cn/api/v2/address",
@@ -234,7 +234,7 @@ export default {
           token: that.getToken
         }
       }).then(res => {
-        console.log(res.data);
+        // console.log(res.data);
 
         that.list.name = res.data.consigner;
         that.list.id = res.data.user_id;
@@ -257,7 +257,7 @@ export default {
             tel: res.data.phone * 1
           }
         ];
-        console.log(that.list);
+        // console.log(that.list);
       });
     },
     indent() {
@@ -265,21 +265,21 @@ export default {
     },
     //删除
     del(id) {
-      console.log(id);
+      // console.log(id);
       this.$store.commit("delCart", id);
     },
     //增加
     add_num(id) {
-      console.log("增加" + id);
+      // console.log("增加" + id);
       this.$store.commit("plusCart", id);
     },
     min_num(id) {
-      console.log("减少" + id);
+      // console.log("减少" + id);
       this.$store.commit("minCart", id);
     },
 
     checkeds(id) {
-      console.log(id);
+      // console.log(id);
       this.$store.commit("checkGoods", id);
     }, //全选
     allcheck(checkedAll) {

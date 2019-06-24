@@ -63,10 +63,10 @@ export default {
     onvlue(value) {
       if (value == false) {
         this.onshow = 0;
-        console.log(this.onshow);
+        // console.log(this.onshow);
       } else {
         this.onshow = 1;
-        console.log(this.onshow);
+        // console.log(this.onshow);
       }
     },
     onChangeDetail(val) {
@@ -79,7 +79,7 @@ export default {
     },
     onSave(val) {
       //获取表单所有信息
-      console.log(val);
+      // console.log(val);
       //       addressDetail: "元岗街道慧通产业园B9栋"//详细地址
       // areaCode: "440106"
       // city: "广州市"//城市
@@ -95,7 +95,7 @@ export default {
       //   this.$router.go(-1);
       // } else {
       // }
-      console.log(this.geToken)
+      // console.log(this.geToken)
       var that = this;
       this.$axios({
         method: "post",
@@ -127,7 +127,7 @@ export default {
           }
         ],
       }).then(res => {
-        console.log(res);
+        // console.log(res);
       });
     }
   }

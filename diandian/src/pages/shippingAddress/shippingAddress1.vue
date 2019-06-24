@@ -72,12 +72,12 @@ export default {
   },
   created() {
     this.testlist();
-    console.log(this.testlist());
+    // console.log(this.testlist());
   },
   methods: {
     back() {
       this.$router.go(-1);
-      console.log("上一页");
+      // console.log("上一页");
     },
     onAdd() {
       // Toast("新增地址");
@@ -99,7 +99,7 @@ export default {
           token: "48f2d3c84a0d1007122f41f32900e206"
         }
       }).then(res => {
-        console.log(res);
+        // console.log(res);
 
         for (let i = 0; i < this.test.testlist.length; i++) {
           var obj = {};

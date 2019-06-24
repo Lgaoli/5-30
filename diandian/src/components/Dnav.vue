@@ -36,7 +36,7 @@ export default {
         that.items = that.items.concat(res.data);
       })
       .catch(function(error) {
-        console.log(error);
+        // console.log(error);
       });
   },
   methods: {
@@ -51,16 +51,16 @@ export default {
           })
           .then(function(res) {
             that.shop = res.data;
-            console.log(that.shop);
+            // console.log(that.shop);
           })
           .catch(function(error) {
-            console.log("当前没有商品");
+            // console.log("当前没有商品");
           });
       }
     },
 
     cat_id() {
-      return console.log(this.$store.state);
+      return this.$store.state
     }
   }
 };

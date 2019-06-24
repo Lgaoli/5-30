@@ -81,7 +81,7 @@ export default {
   },
   created() {
     var that = this;
-    console.log(that);
+    // console.log(that);
     this.$axios({
       method: "get",
       url: "https://api.ddjingxuan.cn/api/v2/address",
@@ -89,7 +89,7 @@ export default {
         token: that.getToken
       }
     }).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
 
       that.list.name = res.data.consigner;
       that.list.id = res.data.user_id;
@@ -112,13 +112,13 @@ export default {
           tel: res.data.phone * 1
         }
       ];
-      console.log(that.list);
+      // console.log(that.list);
     });
   },
   methods: {
     back() {
       this.$router.go(-1);
-      console.log("上一页");
+      // console.log("上一页");
     },
     onAdd() {
       // Toast("新增地址");

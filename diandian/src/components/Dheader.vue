@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     setAuthor(event) {
-        console.log(event)
+        // console.log(event)
       this.$store.commit("newAuthor", event.data);
     }
   },

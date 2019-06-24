@@ -90,7 +90,7 @@ export default {
       this.$axios
         .post(url, data)
         .then(res => {
-          console.log(res); //返回的数据
+          // console.log(res); //返回的数据
         })
         .catch(err => {});
       var auth_timetimer = setInterval(() => {
@@ -103,7 +103,7 @@ export default {
     },
 
     submit() {
-      console.log(this.phones);
+      // console.log(this.phones);
       var that = this;
       this.$axios({
         method: "post",
@@ -117,11 +117,11 @@ export default {
         }
       })
         .then(response => {
-          console.log(response);
+          // console.log(response);
           Toast.fail(error.msg);
         })
         .catch(error => {
-          console.log(1); //错误信息
+          // console.log(1); //错误信息
           Toast.fail(error.msg);
         });
     }

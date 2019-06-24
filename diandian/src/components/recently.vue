@@ -55,7 +55,7 @@ export default {
         that.recentlylist = res.data;
       })
       .catch(function(error) {
-        console.log(error);
+        // console.log(error);
       });
   },
   methods: {}

@@ -36,10 +36,10 @@ export default {
         .get("https://api.ddjingxuan.cn/api/v2/banner")
         .then(function(res) {
           that.swiperList = res.data;
-          console.log(that);
+          // console.log(that);
         })
         .catch(function(error) {
-          console.log(that);
+          // console.log(that);
         });
     }
   }
