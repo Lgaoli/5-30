@@ -87,15 +87,16 @@ import { Card, SubmitBar } from "vant";
 
 Vue.use(SubmitBar).use(Card);
 export default {
-  created() {
-    console.log(this);
-  },
+  created() {},
   computed: {
     checkedgoods() {
       return this.$store.getters.checkedgoods;
     },
     checkedmoney() {
       return this.$store.getters.checkedmoney;
+    },
+    getToken() {
+      return this.$store.getters.getToken;
     },
     freight() {
       let freight = 8;
@@ -105,8 +106,11 @@ export default {
       return freight;
     }
   },
+
   methods: {
     SubmitOrderHan() {
+      console.log(this);
+      var that=this
       let data = {
         goodData: JSON.stringify(this.checkedgoods)
       };
@@ -116,7 +120,7 @@ export default {
         url: "https://api.ddjingxuan.cn/api/v2/order",
         data: { products: data.goodData },
         headers: {
-          token: "47e544eae77faf1f47c6b2da970ae480"
+          token: that.getToken
         }
       })
         .then(response => {

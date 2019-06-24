@@ -12,17 +12,52 @@
     </div>
 
     <div class="shopping-cart">
-      <router-link to="/shippingAddress">
-        <div class="shopping-cart-header">
-          <div>
-            <i class="iconfont">&#xe611;</i>
-            <span>添加收货地址</span>
-          </div>
-          <div>
-            <i class="iconfont">&#xe632;</i>
-          </div>
+      <div v-if="list.length">
+        <div
+          style="  border-bottom: 1px solid #ccc;padding:0 1.25rem  0  1.25rem"
+          v-for="(item, index) in list"
+          :key="index"
+        >
+          <van-radio-group
+            v-model="radio"
+            style="    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    "
+          >
+            <van-radio :name="item">
+              <div class="address" @click="back()">
+                <div style="padding-top: 0.6rem">
+                  <div>
+                    <span
+                      style="font-size:1.4rem;font-weight:600;padding-right:0.3ren=m"
+                    >{{item.name}}</span>
+                    <span>{{item.tel}}</span>
+                  </div>
+                  <div>{{item.address}}</div>
+                </div>
+              </div>
+            </van-radio>
+            <router-link to="/AddressEdit">
+              <div style="color:#f15e0e;width: 30px;">编辑</div>
+            </router-link>
+          </van-radio-group>
         </div>
-      </router-link>
+      </div>
+      <div v-else>
+        <router-link to="/shippingAddress">
+          <div class="shopping-cart-header">
+            <div>
+              <i class="iconfont">&#xe611;</i>
+              <span>添加收货地址</span>
+            </div>
+            <div>
+              <i class="iconfont">&#xe632;</i>
+            </div>
+          </div>
+        </router-link>
+      </div>
+
       <div style="width:100%;
           height: 0.6rem;
           background:#f7f7f7"></div>
@@ -151,10 +186,14 @@ export default {
       Num: {},
       checkedNames: [],
       checked: false,
-      dialogshow: false
+      dialogshow: false,
+      chosenAddressId: "1",
+      list: []
     };
   },
-  created() {},
+  created() {
+    this.testlist();
+  },
   computed: {
     //购物车的商品
     addCart() {
@@ -179,9 +218,48 @@ export default {
     //选中价格
     checkedmoney() {
       return this.$store.getters.checkedmoney;
+    },
+    getToken() {
+      return this.$store.getters.getToken;
     }
   },
   methods: {
+    testlist() {
+      var that = this;
+      console.log(that);
+      this.$axios({
+        method: "get",
+        url: "https://api.ddjingxuan.cn/api/v2/address",
+        headers: {
+          token: that.getToken
+        }
+      }).then(res => {
+        console.log(res.data);
+
+        that.list.name = res.data.consigner;
+        that.list.id = res.data.user_id;
+        that.list.address =
+          res.data.province +
+          res.data.city +
+          res.data.district +
+          res.data.address;
+        that.list.tel = res.data.phone * 1;
+
+        that.list = [
+          {
+            name: res.data.consigner,
+            id: res.data.user_id,
+            address:
+              res.data.province +
+              res.data.city +
+              res.data.district +
+              res.data.address,
+            tel: res.data.phone * 1
+          }
+        ];
+        console.log(that.list);
+      });
+    },
     indent() {
       this.$router.push("/Indent");
     },

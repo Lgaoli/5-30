@@ -40,7 +40,24 @@ export default {
     };
   },
   created() {},
-  computed: {},
+  computed: {
+    checkedgoods() {
+      return this.$store.getters.checkedgoods;
+    },
+    checkedmoney() {
+      return this.$store.getters.checkedmoney;
+    },
+    getToken() {
+      return this.$store.getters.getToken;
+    },
+    freight() {
+      let freight = 8;
+      if (this.checkedmoney >= 88) {
+        freight = 0;
+      }
+      return freight;
+    }
+  },
   methods: {
     onDelete() {},
     onvlue(value) {
@@ -51,7 +68,6 @@ export default {
         this.onshow = 1;
         console.log(this.onshow);
       }
-      value;
     },
     onChangeDetail(val) {
       //详细地址
@@ -79,25 +95,40 @@ export default {
       //   this.$router.go(-1);
       // } else {
       // }
+      console.log(this.geToken)
+      var that = this;
       this.$axios({
         method: "post",
         url: "https://api.ddjingxuan.cn/api/v2/address",
-        data: {
-          token: "5234155edff0fa93696dd45c4b03cc59",
-          consigner: val.name,
-          phone: val.tel
-          // province:val.province,
-          // city:val.city,
-          // district:val.county,
-          // address:val.addressDetail,
-          // is_default:this.onshow
+        headers: {
+          token: that.getToken
         },
-        // headers: {
-        //   "Content-Type": "application/x-www-form-urlencoded",
-        //   Authorization: "Bearer " + "this.token"
-        // }
-      }).then(res => {});
-
+        data: {
+          consigner: val.name,
+          phone: val.tel,
+          province: val.province,
+          city: val.city,
+          district: val.county,
+          address: val.addressDetail,
+          is_default: this.onshow
+        },
+        transformRequest: [
+          function(data) {
+            // Do whatever you want to transform the data
+            let ret = "";
+            for (let it in data) {
+              ret +=
+                encodeURIComponent(it) +
+                "=" +
+                encodeURIComponent(data[it]) +
+                "&";
+            }
+            return ret;
+          }
+        ],
+      }).then(res => {
+        console.log(res);
+      });
     }
   }
 };

@@ -30,7 +30,7 @@ export default {
   },
   beforeCreate() {
     let url =
-      "http://pub.hqyulin.com/?token=921186a225bca7200eab8ff3aa931699#/";
+      "http://pub.hqyulin.com/?token=be9ea809f59ea514b33fa4d6593b75e9#/";
     let str = url.split("?")[1];
     let str1 = str.split("=")[1].split("#")[0];
     localStorage.setItem("token", str1, 7200);

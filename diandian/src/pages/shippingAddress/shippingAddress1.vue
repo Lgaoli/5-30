@@ -13,7 +13,7 @@
         </router-link>
       </div>
     </div>
-      <div class="order-form-main" style="padding: 0 1.25rem 0 1.25rem;">
+    <div class="order-form-main" style="padding: 0 1.25rem 0 1.25rem;">
       <div
         style="  border-bottom: 1px solid #ccc;padding:0 1.25rem  0  1.25rem"
         v-for="(item, index) in list"
@@ -49,71 +49,30 @@
 </template>
 <script>
 import Vue from "vue";
-import { RadioGroup, Radio, AddressList } from "vant";
+import { RadioGroup, Radio } from "vant";
 import test from "../../assets/test.js";
-Vue.use(RadioGroup)
-  .use(Radio)
-  .use(AddressList);
+Vue.use(RadioGroup).use(Radio);
 export default {
   data() {
     return {
-      chosenAddressId: "1",
-      list: []
+      radio: "1",
+      list: [
+        // {
+        //   id:'',
+        //   name: '',
+        //   tel: '',
+        //   address:''
+        // }
+      ],
+      result: [],
+      test,
+
+      disabledList: []
     };
   },
-  computed: {
-    checkedgoods() {
-      return this.$store.getters.checkedgoods;
-    },
-    checkedmoney() {
-      return this.$store.getters.checkedmoney;
-    },
-    getToken() {
-      return this.$store.getters.getToken;
-    },
-    freight() {
-      let freight = 8;
-      if (this.checkedmoney >= 88) {
-        freight = 0;
-      }
-      return freight;
-    }
-  },
   created() {
-    var that = this;
-    console.log(that);
-    this.$axios({
-      method: "get",
-      url: "https://api.ddjingxuan.cn/api/v2/address",
-      headers: {
-        token: that.getToken
-      }
-    }).then(res => {
-      console.log(res.data);
-
-      that.list.name = res.data.consigner;
-      that.list.id = res.data.user_id;
-      that.list.address =
-        res.data.province +
-        res.data.city +
-        res.data.district +
-        res.data.address;
-      that.list.tel = res.data.phone * 1;
-
-      that.list = [
-        {
-          name: res.data.consigner,
-          id: res.data.user_id,
-          address:
-            res.data.province +
-            res.data.city +
-            res.data.district +
-            res.data.address,
-          tel: res.data.phone * 1
-        }
-      ];
-      console.log(that.list);
-    });
+    this.testlist();
+    console.log(this.testlist());
   },
   methods: {
     back() {
@@ -128,7 +87,29 @@ export default {
     },
 
     onEdit(item, index) {
-      Toast("编辑地址:" + index);
+      // Toast("编辑地址:" + index);
+    },
+    testlist() {
+      var that = this;
+
+      this.$axios({
+        method: "get",
+        url: "https://api.ddjingxuan.cn/api/v2/address",
+        headers: {
+          token: "48f2d3c84a0d1007122f41f32900e206"
+        }
+      }).then(res => {
+        console.log(res);
+
+        for (let i = 0; i < this.test.testlist.length; i++) {
+          var obj = {};
+          obj.tel = this.test.testlist[i].tel;
+          obj.name = this.test.testlist[i].goods_name;
+          obj.tel = this.test.testlist[i].tel;
+          obj.address = this.test.testlist[i].address;
+          this.list.push(obj);
+        }
+      });
     }
   }
 };

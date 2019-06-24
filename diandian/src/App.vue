@@ -1,8 +1,8 @@
 <template>
   <div id="app" style="font-size:1.3rem">
-    <keep-alive>
+
       <router-view/>
-    </keep-alive>
+
   </div>
 </template>
 
@@ -42,4 +42,5 @@ export default {
 a {
   color: #000;
 }
+/* gaoli */
 </style>
