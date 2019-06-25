@@ -14,35 +14,50 @@
       </div>
     </div>
       <div class="order-form-main" style="padding: 0 1.25rem 0 1.25rem;">
-      <div
-        style="  border-bottom: 1px solid #ccc;padding:0 1.25rem  0  1.25rem"
-        v-for="(item, index) in list"
-        :key="index"
-      >
-        <van-radio-group
-          v-model="radio"
-          style="    display: flex;
+       <div v-if="list.length">
+        <div
+          style="  border-bottom: 1px solid #ccc;padding:0 1.25rem  0  1.25rem"
+          v-for="(item, index) in list"
+          :key="index"
+        >
+          <van-radio-group
+            v-model="radio"
+            style="    display: flex;
     justify-content:space-between;
     align-items: center;
     "
-        >
-          <van-radio :name="item">
-            <div class="address" @click="back()">
-              <div style="padding-top: 0.6rem">
-                <div>
-                  <span
-                    style="font-size:1.4rem;font-weight:600;padding-right:0.3ren=m"
-                  >{{item.name}}</span>
-                  <span>{{item.tel}}</span>
+          >
+            <van-radio :name="item">
+              <div class="address" @click="back()">
+                <div style="padding-top: 0.6rem">
+                  <div>
+                    <span
+                      style="font-size:1.4rem;font-weight:600;padding-right:0.3ren=m"
+                    >{{item.name}}</span>
+                    <span>{{item.tel}}</span>
+                  </div>
+                  <div>{{item.address}}</div>
                 </div>
-                <div>{{item.address}}</div>
               </div>
+            </van-radio>
+            <router-link to="/AddressEdit">
+              <div style="color:#f15e0e;width: 30px;">编辑</div>
+            </router-link>
+          </van-radio-group>
+        </div>
+      </div>
+      <div v-else>
+        <router-link to="/shippingAddress">
+          <div class="shopping-cart-header">
+            <div>
+              <i class="iconfont">&#xe611;</i>
+              <span>添加收货地址</span>
             </div>
-          </van-radio>
-          <router-link to="/AddressEdit">
-            <div style="color:#f15e0e;width: 30px;">编辑</div>
-          </router-link>
-        </van-radio-group>
+            <div>
+              <i class="iconfont">&#xe632;</i>
+            </div>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -58,7 +73,8 @@ export default {
   data() {
     return {
       chosenAddressId: "1",
-      list: []
+      list: [],
+      radio: '1'
     };
   },
   computed: {

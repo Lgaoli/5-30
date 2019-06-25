@@ -29,9 +29,10 @@ export default {
     };
   },
   beforeCreate() {
-    let url = window.location.href;
-    let str = url.split("?")[1];
-    let str1 = str.split("=")[1].split("#")[0];
+    // let url = "window.location.href";
+    // let str = url.split("?")[1];
+    // let str1 = str.split("=")[1].split("#")[0];
+    let str1 = this.getToken;
     localStorage.setItem("token", str1, 7200);
     this.$store.commit("setToken", str1);
 
@@ -39,7 +40,6 @@ export default {
       this.$router.push("/");
     } else {
       // this.$router.replace("/login");
-
     }
   },
   created() {

@@ -139,7 +139,7 @@
 
     <div class="detail-footer" style="border-">
       <!--:price="parseFloat(shoplists[index].shop_price*100)" -->
-      <van-submit-bar button-text="下订单" :price="checkedmoney*100" @submit="indent">
+      <van-submit-bar button-text="结算" :price="checkedmoney*100" @submit="indent">
         <!--         :disabled="{flase:checkedcount<0}" -->
         <div class="van-checkbox">
           <div
@@ -161,7 +161,11 @@
 <script>
 import Vue from "vue";
 import { mapState, mapGetters } from "vuex";
+
 import {
+  RadioGroup,
+  Radio,
+  AddressList,
   Checkbox,
   CheckboxGroup,
   Stepper,
@@ -174,7 +178,10 @@ Vue.use(Checkbox)
   .use(Stepper)
   .use(SubmitBar)
   .use(Card)
-  .use(SwipeCell);
+  .use(SwipeCell)
+  .use(RadioGroup)
+  .use(Radio)
+  .use(AddressList);
 import Dfooter from "../../components/Dfooter";
 export default {
   components: {
@@ -188,7 +195,8 @@ export default {
       checked: false,
       dialogshow: false,
       chosenAddressId: "1",
-      list: []
+      list: [],
+      radio: "1"
     };
   },
   created() {

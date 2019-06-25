@@ -11,32 +11,68 @@
     </div>
 
     <div class="indent-cart">
-      <router-link to="/shippingAddress">
-        <div class="indent-cart-header">
-          <div>
-            <i class="iconfont">&#xe611;</i>
-            <span>添加收货地址</span>
-          </div>
-          <div>
-            <i class="iconfont">&#xe632;</i>
-          </div>
+      <div v-if="list.length">
+        <div
+          style="  border-bottom: 1px solid #ccc;padding:0 1.25rem  0  1.25rem"
+          v-for="(item, index) in list"
+          :key="index"
+        >
+          <van-radio-group
+            v-model="radio"
+            style="    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    "
+          >
+            <van-radio :name="item">
+              <div class="address" @click="back()">
+                <div style="padding-top: 0.6rem">
+                  <div>
+                    <span
+                      style="font-size:1.4rem;font-weight:600;padding-right:0.3ren=m"
+                    >{{item.name}}</span>
+                    <span>{{item.tel}}</span>
+                  </div>
+                  <div>{{item.address}}</div>
+                </div>
+              </div>
+            </van-radio>
+            <router-link to="/AddressEdit">
+              <div style="color:#f15e0e;width: 30px;">编辑</div>
+            </router-link>
+          </van-radio-group>
         </div>
-      </router-link>
+      </div>
+      <div v-else>
+        <router-link to="/shippingAddress">
+          <div class="indent-cart-header">
+            <div>
+              <i class="iconfont">&#xe611;</i>
+              <span>添加收货地址</span>
+            </div>
+            <div>
+              <i class="iconfont">&#xe632;</i>
+            </div>
+          </div>
+        </router-link>
+      </div>
       <div style="width:100%;
           height: 0.6rem;
           background:#f7f7f7"></div>
       <div class="indent-main">
-        <div v-if="checkedgoods.length>0">
-          <div v-for="(item,index) in checkedgoods" :key="index">
-            <van-card
-              :num="item.goods_num"
-              :price="item.supply_price"
-              :desc="item.goods_name"
-              :thumb="item.shopimg"
-            />
+        <div>
+          <div v-if="checkedgoods.length>0">
+            <div v-for="(item,index) in checkedgoods" :key="index">
+              <van-card
+                :num="item.goods_num"
+                :price="item.supply_price"
+                :desc="item.goods_name"
+                :thumb="item.shopimg"
+              />
+            </div>
           </div>
+          <div v-else style="padding:1.25rem;">暂时无商品</div>
         </div>
-        <div v-else style="padding:1.25rem;">暂时无商品</div>
       </div>
       <div style="width:100%;
           height: 0.6rem;
@@ -75,7 +111,7 @@
     <div class="indent-footer">
       <van-submit-bar
         :price="(checkedmoney+freight)*100"
-        button-text="提交订单"
+        button-text="立即支付"
         @submit="SubmitOrderHan"
       />
     </div>
@@ -87,6 +123,11 @@ import { Card, SubmitBar } from "vant";
 
 Vue.use(SubmitBar).use(Card);
 export default {
+  data() {
+    return {
+      list: []
+    };
+  },
   created() {},
   computed: {
     checkedgoods() {
@@ -106,25 +147,38 @@ export default {
       return freight;
     }
   },
-
   methods: {
     SubmitOrderHan() {
+      var that = this;
+      // let arr = [];
+      let arr = "";
+      let datas = [];
+      for (let i in that.checkedgoods) {
+        datas[i] = {
+          goods_id: that.checkedgoods[i].goods_id,
+          goods_num: that.checkedgoods[i].goods_num
+        };
+      }
+      // console.log(datas);
+      // for (let i in datas) {
+      //   let o = {};
+      //   o[i] = datas[i];
+      //   arr.push(o);
+      // }
+      arr = JSON.stringify(datas);
 
-      var that=this
-      let data = {
-        goodData: JSON.stringify(this.checkedgoods)
-      };
-
+      
+      // console.log("他" + arr);
       this.$axios({
         method: "post",
         url: "https://api.ddjingxuan.cn/api/v2/order",
-        data: { products: data.goodData },
+        data: { goods: arr },
         headers: {
-          token: that.getToken
+          token:this.getToken
         }
       })
-        .then(response => {
-          // console.log(response);
+        .then(res => {
+          console.log(res.data);
         })
         .catch(error => {
           // console.log(error);
