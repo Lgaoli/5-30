@@ -10,7 +10,7 @@
       <div class="shop"></div>
     </div>
 
-    <div class="indent-cart">
+      <div class="indent-cart">
       <div v-if="list.length">
         <div
           style="  border-bottom: 1px solid #ccc;padding:0 1.25rem  0  1.25rem"
@@ -45,7 +45,7 @@
       </div>
       <div v-else>
         <router-link to="/shippingAddress">
-          <div class="indent-cart-header">
+          <div class="shopping-cart-header">
             <div>
               <i class="iconfont">&#xe611;</i>
               <span>添加收货地址</span>
@@ -119,16 +119,36 @@
 </template>
 <script>
 import Vue from "vue";
-import { Card, SubmitBar } from "vant";
+import {
+  RadioGroup,
+  Radio,
+  AddressList,
+  Checkbox,
+  CheckboxGroup,
+  Stepper,
+  SubmitBar,
+  Card,
+  SwipeCell,
+} from "vant";
 
-Vue.use(SubmitBar).use(Card);
+Vue.use(Checkbox)
+  .use(CheckboxGroup)
+  .use(Stepper)
+  .use(SubmitBar)
+  .use(Card)
+  .use(SwipeCell)
+  .use(RadioGroup)
+  .use(Radio)
+  .use(AddressList);
 export default {
   data() {
     return {
       list: []
     };
   },
-  created() {},
+  created() {
+    this.testlist();
+  },
   computed: {
     checkedgoods() {
       return this.$store.getters.checkedgoods;
@@ -148,6 +168,42 @@ export default {
     }
   },
   methods: {
+    testlist() {
+      var that = this;
+      // console.log(that);
+      this.$axios({
+        method: "get",
+        url: "https://api.ddjingxuan.cn/api/v2/address",
+        headers: {
+          token: that.getToken
+        }
+      }).then(res => {
+        // console.log(res.data);
+
+        that.list.name = res.data.consigner;
+        that.list.id = res.data.user_id;
+        that.list.address =
+          res.data.province +
+          res.data.city +
+          res.data.district +
+          res.data.address;
+        that.list.tel = res.data.phone * 1;
+
+        that.list = [
+          {
+            name: res.data.consigner,
+            id: res.data.user_id,
+            address:
+              res.data.province +
+              res.data.city +
+              res.data.district +
+              res.data.address,
+            tel: res.data.phone * 1
+          }
+        ];
+        // console.log(that.list);
+      });
+    },
     SubmitOrderHan() {
       var that = this;
       // let arr = [];
@@ -167,14 +223,13 @@ export default {
       // }
       arr = JSON.stringify(datas);
 
-      
       // console.log("他" + arr);
       this.$axios({
         method: "post",
         url: "https://api.ddjingxuan.cn/api/v2/order",
         data: { goods: arr },
         headers: {
-          token:this.getToken
+          token: this.getToken
         }
       })
         .then(res => {

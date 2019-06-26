@@ -32,7 +32,7 @@ export default {
     // let url = "window.location.href";
     // let str = url.split("?")[1];
     // let str1 = str.split("=")[1].split("#")[0];
-    let str1 = this.getToken;
+    let str1 = '428a4456460aa993224f18a91a2b2317';
     localStorage.setItem("token", str1, 7200);
     this.$store.commit("setToken", str1);
 

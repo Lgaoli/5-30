@@ -11,6 +11,7 @@ const shippingAddress = r => require.ensure([], () => r(require('../pages/shippi
 const AddressEdit = r => require.ensure([], () => r(require('../pages/shippingAddress/AddressEdit.vue')), 'AddressEdit')
 const Indent = r => require.ensure([], () => r(require('../pages/Indent/indent.vue')), 'Indent')
 const Call = r => require.ensure([], () => r(require('../pages/call/call.vue')), 'Call')
+const Agency = r => require.ensure([], () => r(require('../pages/Agency/Agency.vue')), 'Agency')
 Vue.use(Router)
 
 export default new Router({
@@ -82,14 +83,21 @@ export default new Router({
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       },
       component: Indent
-    },{
+    }, {
       path: '/Call',
       name: 'Call',
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       },
       component: Call
-    }
+    }, {
+      path: '/Agency',
+      name: 'Agency',
+      meta: {
+        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      },
+      component: Agency
+    },
 
   ],
 
