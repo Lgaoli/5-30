@@ -20,15 +20,15 @@ export default {
         },
         {
           statusId: "1",
-          statusVal: "未处理"
+          statusVal: "黄金会员"
         },
         {
           statusId: "0",
-          statusVal: "处理中"
+          statusVal: "白金会员"
         },
         {
           statusId: "0",
-          statusVal: "处理完成"
+          statusVal: "钻石会员"
         }
       ],
       selected: ""

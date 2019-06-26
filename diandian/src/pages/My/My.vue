@@ -12,7 +12,7 @@
         </div>
         <div style="padding:1.1rem;color:#F5F5F5;">
           <div style="font-weight:600;font-size:1.8rem">昵称：{{pe.nickname}}</div>
-          <div>邀请人：{{pe.Inviter}}</div>
+          <div>邀请人：{{pe.inviter}}</div>
         </div>
       </div>
       <div class="My-main-mian1" style="
@@ -48,7 +48,7 @@
         </div>
         <div>
           <i class="iconfont">&#xe6d5;</i>
-          <p>代发货</p>
+          <p>待发货</p>
         </div>
         <div>
           <i class="iconfont">&#xe6e1;</i>
@@ -174,7 +174,7 @@ export default {
     pes() {
       let that = this;
       //发送get请求
-      let Token = "218a146a0ec1548a3d6f0b252061c120";
+      // let Token = "218a146a0ec1548a3d6f0b252061c120";
       this.$axios({
         //调用接口
         method: "GET",
@@ -188,7 +188,7 @@ export default {
       }).then(
         function(res) {
           //接口返回数据
-          console.log(res.data);
+          // console.log(res.data);
           that.pe = res.data;
         },
         function(error) {}
