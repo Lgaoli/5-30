@@ -29,11 +29,11 @@ export default {
     };
   },
   beforeCreate() {
-    let url = "window.location.href";
-    let str = url.split("?")[1];
-    let str1 = str.split("=")[1].split("#")[0];
-    // let str1 = '428a4456460aa993224f18a91a2b2317';
-    localStorage.setItem("token", str1, 7200);
+    // let url = window.location.href;
+    // let str = url.split("?")[1];
+    // let str1 = str.split("=")[1].split("#")[0];
+    let str1 = '92d0d88903107f6fa5a0730b9002cf3b';
+    localStorage.setItem("token", str1, 240000);
     this.$store.commit("setToken", str1);
 
     if (this.$store.state.token) {

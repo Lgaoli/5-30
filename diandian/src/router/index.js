@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+
+
 const Home = r => require.ensure([], () => r(require('../pages/Home/Home.vue')), 'Home')
+const Login = r => require.ensure([], () => r(require('../pages/Home/login.vue')), 'Login')
 const Catalog = r => require.ensure([], () => r(require('../pages/Catalog/Catalog.vue')), 'My')
 const My = r => require.ensure([], () => r(require('../pages/My/My.vue')), 'My')
 const shop = r => require.ensure([], () => r(require('../pages/shop/shop.vue')), 'shop')
@@ -14,7 +17,7 @@ const Call = r => require.ensure([], () => r(require('../pages/call/call.vue')),
 const Agency = r => require.ensure([], () => r(require('../pages/Agency/Agency.vue')), 'Agency')
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -22,7 +25,15 @@ export default new Router({
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       },
+
       component: Home
+    }, {
+      path: '/Login',
+      name: 'Login',
+      meta: {
+        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      },
+      component: Login
     }, {
       path: '/Catalog',
       name: 'Catalog',
@@ -97,9 +108,23 @@ export default new Router({
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       },
       component: Agency
-    },
+    }
 
   ],
 
 
 })
+
+router.beforeEach((to, from, next) => {
+
+  if (window.localStorage.token) {
+    next()
+  } else {
+    if (window.location.href="https://api.ddjingxuan.cn/api/v2/code/user") {
+      next()
+    } else {
+      window.location.href="https://api.ddjingxuan.cn/api/v2/code/user"
+    }
+  }
+})
+export default router

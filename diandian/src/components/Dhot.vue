@@ -39,7 +39,6 @@ export default {
       .get("https://api.ddjingxuan.cn/api/v2/goods/hot")
       .then(function(res) {
         that.hotlist = res.data;
-     
       })
       .catch(function(error) {
         // console.log(error);
@@ -88,6 +87,7 @@ export default {
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
             overflow: hidden;
+            text-overflow: ellipsis;
           }
           .hot-money {
             display: flex;

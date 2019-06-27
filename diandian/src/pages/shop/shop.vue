@@ -131,8 +131,16 @@
           background:#f7f7f7"></div>
           </div>
         </div>
-        <div v-else>
-          <div>空空如也</div>
+        <div v-else style="padding:10rem;    text-align: center;">
+          <div>
+            <div class="shopimg" style="padding:1.3rem">
+              <img src="../../assets/img/img_empty_shopping_cart.png">
+            </div >
+            <p style="color:#9FA4A5;font-size:1.5rem">购物车还是空的，快去逛逛吧~</p>
+            <router-link to="/My">
+            <div class="shopbut" style="color:#9FA4A5;font-size:1.5rm;padding:1.16rem;border:#dedede 1px solid;margin-top:1rem;border-radius: 10px;"><p>个人中心</p></div></router-link>
+           <router-link to="/"> <div class="shopbut" style="color:#9FA4A5;font-size:1.5rm;padding:1.16rem;border:#dedede 1px solid;margin-top:1rem;border-radius: 10px;"><p>立即逛逛</p></div></router-link>
+          </div>
         </div>
       </div>
     </div>

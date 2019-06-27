@@ -29,7 +29,7 @@
       </div>
       <div
         class
-        v-else-if="shop.length=='0'||selectedId=='1'"
+        v-else-if="shop.length=='0'"
         style="display:flex;justify-content: center;"
       >暂时没有此商品分类的商品</div>
       <div v-else>
@@ -175,7 +175,7 @@ export default {
     },
 
     cat_id() {
-      return this.$store.state
+      return this.$store.state;
     }
   }
 };
@@ -235,11 +235,16 @@ export default {
 
         .rec-list-text {
           height: 3rem;
-          p {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+          text-overflow: ellipsis p {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
             overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
 
