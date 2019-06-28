@@ -16,8 +16,10 @@
                 <img :src="item.img_url" alt>
               </div>
               <div class="shopss">
-                <div class="rec-list-text">
-                  <p>{{item.goods_name}}</p>
+                <div
+                  class="rec-list-text"
+                  style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:2;-webkit-box-orient: vertical;"
+                >{{item.goods_name}}
                 </div>
                 <div class="rec-list-buy">
                   <div class="price">
@@ -85,20 +87,6 @@ export default {
           .shopss {
             width: 21.5rem;
             .rec-list-text {
-              height: 3rem;
-              p {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
-                
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 2;
-              }
             }
 
             .rec-list-buy {

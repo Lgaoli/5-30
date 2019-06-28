@@ -2,7 +2,6 @@
   <div class="nav">
     <van-tabs @click="onClick" v-model="items.cat_id">
       <van-tab v-for="(item,index) in items" :key="index" :title="item.name" >
-
       </van-tab>
     </van-tabs>
   </div>

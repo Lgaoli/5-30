@@ -119,6 +119,8 @@
 </template>
 <script>
 import Vue from "vue";
+import qs from 'qs'
+
 import {
   RadioGroup,
   Radio,
@@ -141,6 +143,7 @@ Vue.use(Checkbox)
   .use(Radio)
   .use(AddressList);
 export default {
+  
   data() {
     return {
       list: []
@@ -171,6 +174,7 @@ export default {
     testlist() {
       var that = this;
       // console.log(that);
+      
       this.$axios({
         method: "get",
         url: "https://api.ddjingxuan.cn/api/v2/address",
@@ -221,7 +225,8 @@ export default {
       //   o[i] = datas[i];
       //   arr.push(o);
       // }
-      arr = JSON.stringify(datas);
+      var qs=require('qs')
+      arr = qs.stringify(datas);
 
       // console.log("他" + arr);
       this.$axios({

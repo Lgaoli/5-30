@@ -15,6 +15,7 @@ const AddressEdit = r => require.ensure([], () => r(require('../pages/shippingAd
 const Indent = r => require.ensure([], () => r(require('../pages/Indent/indent.vue')), 'Indent')
 const Call = r => require.ensure([], () => r(require('../pages/call/call.vue')), 'Call')
 const Agency = r => require.ensure([], () => r(require('../pages/Agency/Agency.vue')), 'Agency')
+const Order = r => require.ensure([], () => r(require('../pages/Order/Order.vue')), 'Order')
 Vue.use(Router)
 
 const router = new Router({
@@ -109,7 +110,14 @@ const router = new Router({
       },
       component: Agency
     }
-
+    , {
+      path: '/Order',
+      name: 'Order',
+      meta: {
+        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      },
+      component:Order
+    }
   ],
 
 
@@ -120,10 +128,10 @@ router.beforeEach((to, from, next) => {
   if (window.localStorage.token) {
     next()
   } else {
-    if (window.location.href="https://api.ddjingxuan.cn/api/v2/code/user") {
+    if (window.location.href = "https://api.ddjingxuan.cn/api/v2/code/user") {
       next()
     } else {
-      window.location.href="https://api.ddjingxuan.cn/api/v2/code/user"
+      window.location.href = "https://api.ddjingxuan.cn/api/v2/code/user"
     }
   }
 })

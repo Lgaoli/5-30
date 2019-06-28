@@ -42,8 +42,8 @@
                     <img :src="item.img_url" alt>
                   </div>
                   <div class="shopss">
-                    <div class="rec-list-text">
-                      <p style="font-weight: 600;">{{item.goods_name}}</p>
+                    <div class="rec-list-text" style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:2;-webkit-box-orient: vertical;">
+                 {{item.goods_name}}
                     </div>
 
                     <div class="rec-list-buy">
@@ -234,18 +234,7 @@ export default {
         font-size: 1.3rem;
 
         .rec-list-text {
-          height: 3rem;
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-          overflow: hidden;
-          text-overflow: ellipsis p {
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
+        
         }
 
         .rec-list-buy {
