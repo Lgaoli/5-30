@@ -225,7 +225,7 @@ export default {
         data: { goods: datas },
         headers: {
           token: this.getToken
-          // token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
+          // token: "44b3fdb20f67a7feda9ba000a390f408"
         }
       })
         .then(res => {
@@ -242,7 +242,7 @@ export default {
                 url: "https://api.ddjingxuan.cn/api/v2/pay/pre_order",
                 headers: {
                   token: this.getToken
-                  // token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
+                  // token: "44b3fdb20f67a7feda9ba000a390f408"
                 },
                 data: { id: res.data.order_no }
               }).then(res1 => {
