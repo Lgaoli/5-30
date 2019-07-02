@@ -178,8 +178,8 @@ export default {
         method: "get",
         url: "https://api.ddjingxuan.cn/api/v2/address",
         headers: {
-          // token: that.getToken
-          token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
+          token: that.getToken
+          // token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
         }
       }).then(res => {
         // console.log(res.data);
@@ -223,8 +223,8 @@ export default {
         url: "https://api.ddjingxuan.cn/api/v2/order",
         data: { goods: datas },
         headers: {
-          // token: this.getToken
-          token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
+          token: this.getToken
+          // token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
         }
       })
         .then(res => {
