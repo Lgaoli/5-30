@@ -10,159 +10,197 @@
       <div class>购物车</div>
       <div class="shop"></div>
     </div>
-
-    <div class="shopping-cart">
-      <div v-if="list.length">
-        <div
-          style="  border-bottom: 1px solid #ccc;padding:0 1.25rem  0  1.25rem"
-          v-for="(item, index) in list"
-          :key="index"
-        >
-          <van-radio-group
-            v-model="radio"
-            style="    display: flex;
+    <div v-if="addCart.length">
+      <div class="shopping-cart">
+        <div v-if="list.length">
+          <div
+            style="  border-bottom: 1px solid #ccc;padding:0 1.25rem  0  1.25rem"
+            v-for="(item, index) in list"
+            :key="index"
+          >
+            <van-radio-group
+              v-model="radio"
+              style="    display: flex;
     justify-content:space-between;
     align-items: center;
     "
-          >
-            <van-radio :name="item">
-              <div class="address" @click="back()">
-                <div style="padding-top: 0.6rem">
-                  <div>
-                    <span
-                      style="font-size:1.4rem;font-weight:600;padding-right:0.3ren=m"
-                    >{{item.name}}</span>
-                    <span>{{item.tel}}</span>
+            >
+              <van-radio :name="item">
+                <div class="address" @click="back()">
+                  <div style="padding-top: 0.6rem">
+                    <div>
+                      <span
+                        style="font-size:1.4rem;font-weight:600;padding-right:0.3ren=m"
+                      >{{item.name}}</span>
+                      <span>{{item.tel}}</span>
+                    </div>
+                    <div>{{item.address}}</div>
                   </div>
-                  <div>{{item.address}}</div>
                 </div>
-              </div>
-            </van-radio>
-            <router-link to="/AddressEdit">
-              <div style="color:#f15e0e;width: 30px;">编辑</div>
-            </router-link>
-          </van-radio-group>
-        </div>
-      </div>
-      <div v-else>
-        <router-link to="/shippingAddress">
-          <div class="shopping-cart-header">
-            <div>
-              <i class="iconfont">&#xe611;</i>
-              <span>添加收货地址</span>
-            </div>
-            <div>
-              <i class="iconfont">&#xe632;</i>
-            </div>
+              </van-radio>
+              <router-link to="/AddressEdit">
+                <div style="color:#f15e0e;width: 30px;">编辑</div>
+              </router-link>
+            </van-radio-group>
           </div>
-        </router-link>
-      </div>
+        </div>
+        <div v-else>
+          <router-link to="/shippingAddress">
+            <div class="shopping-cart-header">
+              <div>
+                <i class="iconfont">&#xe611;</i>
+                <span>添加收货地址</span>
+              </div>
+              <div>
+                <i class="iconfont">&#xe632;</i>
+              </div>
+            </div>
+          </router-link>
+        </div>
 
-      <div style="width:100%;
+        <div style="width:100%;
           height: 0.6rem;
           background:#f7f7f7"></div>
-      <div class="shopping-cart-main">
-        <div v-if="addCart.length">
-          <div class="shopping-main" v-for="(item,index) in  addCart" :key="index">
-            <!-- <div v-for="(itemss,indexss) in item" :key="indexss">
+        <div class="shopping-cart-main">
+          <div v-if="addCart.length">
+            <div class="shopping-main" v-for="(item,index) in  addCart" :key="index">
+              <!-- <div v-for="(itemss,indexss) in item" :key="indexss">
               <div class="shopping-cart-main1">
                 <div class="shopping-cart-img">{{itemss.goods_name}}</div>
                 <div class="shopping-cart-img">{{itemss.goods_num}}</div>
               </div>
-            </div>-->
-            <div class="shopping-cart-main1">
-              <!-- <van-checkbox v-model="item.index" @click="CheckItem(item)" class="checkedBox"></van-checkbox> -->
-              <div class="checkedBox van-checkbox">
-                <div
-                  class="van-checkbox__icon van-checkbox__icon--round"
-                  :class="{'van-checkbox__icon--checked':item.checked}"
-                  @click="checkeds(item.goods_id)"
-                >
-                  <i class="van-icon van-icon-success">
-                    <!---->
-                  </i>
+              </div>-->
+              <div class="shopping-cart-main1">
+                <!-- <van-checkbox v-model="item.index" @click="CheckItem(item)" class="checkedBox"></van-checkbox> -->
+                <div class="checkedBox van-checkbox">
+                  <div
+                    class="van-checkbox__icon van-checkbox__icon--round"
+                    :class="{'van-checkbox__icon--checked':item.checked}"
+                    @click="checkeds(item.goods_id)"
+                  >
+                    <i class="van-icon van-icon-success">
+                      <!---->
+                    </i>
+                  </div>
                 </div>
-              </div>
-              <div style="
+                <div style="
     display: flex;
     justify-content: space-between;
 ">
-                <div class="shoping-cart-img">
-                  <img :src="item.shopimg" alt>
-                </div>
-                <div class="shopname">
-                  <div class style="height:2.8rem">
-                    <p>{{item.goods_name}}</p>
+                  <div class="shoping-cart-img">
+                    <img :src="item.shopimg" alt>
                   </div>
+                  <div class="shopname">
+                    <div class style="height:2.8rem">
+                      <p>{{item.goods_name}}</p>
+                    </div>
 
-                  <div class="shoppr">
-                    <div class="supply_price" style="display:flex;align-items: center;">
-                      <p
-                        style="font-size: 1.8125rem;
+                    <div class="shoppr">
+                      <div class="supply_price" style="display:flex;align-items: center;">
+                        <p
+                          style="font-size: 1.8125rem;
                         font-weight:600;
     color: rgb(239, 118, 52);"
-                      >现价:￥{{item.supply_price}}</p>
-                      <p
-                        style="font-size:1.1rem;color:#ccc;text-decoration:line-through;margin-left: 1.4rem;"
-                      >原价:￥{{item.shop_price}}</p>
-                    </div>
-                    <div class="goods_num">
-                      <div>
-                        <van-stepper
-                          v-model="item.goods_num"
-                          integer
-                          min="1"
-                          max="10"
-                          @plus="add_num(item.goods_id)"
-                          @minus="min_num(item.goods_id)"
-                          disable-input
-                        />
+                        >现价:￥{{item.supply_price}}</p>
+                        <p
+                          style="font-size:1.1rem;color:#ccc;text-decoration:line-through;margin-left: 1.4rem;"
+                        >原价:￥{{item.shop_price}}</p>
                       </div>
-                      <div class="del" @click="del(item.goods_id)">
-                        <i class="iconfont">&#xe61b;</i>
+                      <div class="goods_num">
+                        <div>
+                          <van-stepper
+                            v-model="item.goods_num"
+                            integer
+                            min="1"
+                            max="10"
+                            @plus="add_num(item.goods_id)"
+                            @minus="min_num(item.goods_id)"
+                            disable-input
+                          />
+                        </div>
+                        <div class="del" @click="del(item.goods_id)">
+                          <i class="iconfont">&#xe61b;</i>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div style="width:100%;
+              <div style="width:100%;
           height: 0.6rem;
           background:#f7f7f7"></div>
+            </div>
           </div>
-        </div>
-        <div v-else style="padding:10rem;    text-align: center;">
-          <div>
-            <div class="shopimg" style="padding:1.3rem">
-              <img src="../../assets/img/img_empty_shopping_cart.png">
-            </div >
-            <p style="color:#9FA4A5;font-size:1.5rem">购物车还是空的，快去逛逛吧~</p>
-            <router-link to="/My">
-            <div class="shopbut" style="color:#9FA4A5;font-size:1.5rm;padding:1.16rem;border:#dedede 1px solid;margin-top:1rem;border-radius: 10px;"><p>个人中心</p></div></router-link>
-           <router-link to="/"> <div class="shopbut" style="color:#9FA4A5;font-size:1.5rm;padding:1.16rem;border:#dedede 1px solid;margin-top:1rem;border-radius: 10px;"><p>立即逛逛</p></div></router-link>
+          <div v-else style="padding:10rem;    text-align: center;">
+            <div>
+              <div class="shopimg" style="padding:1.3rem">
+                <img src="../../assets/img/img_empty_shopping_cart.png">
+              </div>
+              <p style="color:#9FA4A5;font-size:1.5rem">购物车还是空的，快去逛逛吧~</p>
+              <router-link to="/My">
+                <div
+                  class="shopbut"
+                  style="color:#9FA4A5;font-size:1.5rm;padding:1.16rem;border:#dedede 1px solid;margin-top:1rem;border-radius: 10px;"
+                >
+                  <p>个人中心</p>
+                </div>
+              </router-link>
+              <router-link to="/">
+                <div
+                  class="shopbut"
+                  style="color:#9FA4A5;font-size:1.5rm;padding:1.16rem;border:#dedede 1px solid;margin-top:1rem;border-radius: 10px;"
+                >
+                  <p>立即逛逛</p>
+                </div>
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="detail-footer" style="border-">
-      <!--:price="parseFloat(shoplists[index].shop_price*100)" -->
-      <van-submit-bar button-text="结算" :price="checkedmoney*100" @submit="indent">
-        <!--         :disabled="{flase:checkedcount<0}" -->
-        <div class="van-checkbox">
-          <div
-            class="van-checkbox__icon van-checkbox__icon--round"
-            :class="{'van-checkbox__icon--checked':checkedAll}"
-            @click="allcheck(checkedAll)"
-          >
-            <i class="van-icon van-icon-success">
-              <!---->
-            </i>
+      <div class="detail-footer" style="border-">
+        <!--:price="parseFloat(shoplists[index].shop_price*100)" -->
+        <van-submit-bar button-text="结算" :price="checkedmoney*100" @submit="indent">
+          <!--         :disabled="{flase:checkedcount<0}" -->
+          <div class="van-checkbox">
+            <div
+              class="van-checkbox__icon van-checkbox__icon--round"
+              :class="{'van-checkbox__icon--checked':checkedAll}"
+              @click="allcheck(checkedAll)"
+            >
+              <i class="van-icon van-icon-success">
+                <!---->
+              </i>
+            </div>
+            <span class="van-checkbox__label">全选</span>
           </div>
-          <span class="van-checkbox__label">全选</span>
+          <!-- <span slot="tip">你的收货地址不支持同城送,</span> -->
+        </van-submit-bar>
+      </div>
+    </div>
+    <div v-else style="padding:10rem;    text-align: center;">
+      <div>
+        <div class="shopimg" style="padding:1.3rem">
+          <img src="../../assets/img/img_empty_shopping_cart.png">
         </div>
-        <!-- <span slot="tip">你的收货地址不支持同城送,</span> -->
-      </van-submit-bar>
+        <p style="color:#9FA4A5;font-size:1.5rem">购物车还是空的，快去逛逛吧~</p>
+        <router-link to="/My">
+          <div
+            class="shopbut"
+            style="color:#9FA4A5;font-size:1.5rm;padding:1.16rem;border:#dedede 1px solid;margin-top:1rem;border-radius: 10px;"
+          >
+            <p>个人中心</p>
+          </div>
+        </router-link>
+        <router-link to="/">
+          <div
+            class="shopbut"
+            style="color:#9FA4A5;font-size:1.5rm;padding:1.16rem;border:#dedede 1px solid;margin-top:1rem;border-radius: 10px;"
+          >
+            <p>立即逛逛</p>
+          </div>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>

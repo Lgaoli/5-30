@@ -23,8 +23,8 @@
                 </div>
                 <div class="rec-list-buy">
                   <div class="price">
-                    <span class="supply_price">￥{{item.supply_price}}</span>
-                    <span class="shop_price">原价:￥{{item.shop_price}}</span>
+                    <span class="supply_price">￥{{item.market_price}}</span>
+                    <span class="shop_price">原价:￥{{item.market_price}}</span>
                   </div>
                   <div class="buy">
                     <p>{{item.good_sales}}人购买</p>

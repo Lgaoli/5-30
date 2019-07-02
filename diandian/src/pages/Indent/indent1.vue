@@ -65,7 +65,7 @@
             <div v-for="(item,index) in checkedgoods" :key="index">
               <van-card
                 :num="item.goods_num"
-                :price="item.market_price"
+                :price="item.supply_price"
                 :desc="item.goods_name"
                 :thumb="item.shopimg"
               />
@@ -96,7 +96,7 @@
             <span>运费</span>
           </div>
           <div>
-            <span>0元</span>
+            <span>{{freight}}元</span>
             <i class="iconfont">&#xe632;</i>
           </div>
         </div>
@@ -110,7 +110,7 @@
     </div>
     <div class="indent-footer">
       <van-submit-bar
-        :price="checkedmoney*100"
+        :price="(checkedmoney+freight)*100"
         button-text="立即支付"
         @submit="SubmitOrderHan"
       />
@@ -130,8 +130,7 @@ import {
   Stepper,
   SubmitBar,
   Card,
-  SwipeCell,
-  Dialog
+  SwipeCell
 } from "vant";
 
 Vue.use(Checkbox)
@@ -162,13 +161,13 @@ export default {
     getToken() {
       return this.$store.getters.getToken;
     },
-    // freight() {
-    //   let freight = 8;
-    //   if (this.checkedmoney >= 88) {
-    //     freight = 0;
-    //   }
-    //   return freight;
-    // }
+    freight() {
+      let freight = 8;
+      if (this.checkedmoney >= 88) {
+        freight = 0;
+      }
+      return freight;
+    }
   },
   methods: {
     testlist() {
@@ -180,6 +179,7 @@ export default {
         headers: {
           // token: that.getToken
           token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
+          // token: "133039e3962c693ac83eee4ed7741bf5"
         }
       }).then(res => {
         // console.log(res.data);
@@ -210,47 +210,48 @@ export default {
     },
     SubmitOrderHan() {
       var that = this;
-      var datas = [];
-      for (let i = 0; i < this.checkedgoods.length; i++) {
+      // let arr = [];
+      let arr = [];
+      let datas = [];
+
+      for (let i in that.checkedgoods) {
         datas.push({
           goods_id: this.checkedgoods[i].goods_id,
           goods_num: this.checkedgoods[i].goods_num
         });
       }
-      console.log(datas);
+
+      // for (let i in that.checkedgoods) {
+      //   let o = {};
+      //   o[i] = that.checkedgoods[i];
+      //   arr.push(o);
+      // }
+
+      // var arr1 = JSON.stringify(arr);
+      // console.log(datas);
+      // for (let i in datas) {
+      //   let o = {};
+      //   o[i] = datas[i];
+      //   arr.push(o);
+      // }
+      // console.log(typeof datai);
+      // var qs = require("qs");
+      // arr = qs.stringify(datas, { indices: false });
+
+      // console.log("他" + arr);
+
+      // console.log(arr1);
       this.$axios({
-        method: "POST",
+        method: "post",
         url: "https://api.ddjingxuan.cn/api/v2/order",
-        data: { goods: datas },
+        data: {goods: JSON.stringify(datas)},
         headers: {
-          // token: this.getToken
           token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
+          // token: that.getToken
         }
       })
         .then(res => {
           console.log(res.data);
-          Dialog.confirm({
-            title: "确定支付",
-            message: "订单号为：" + res.data.order_no,
-            confirmButtonColor: "#F15E0E"
-          })
-            .then(() => {
-              console.log(res.data);
-              this.$axios({
-                methods: "post",
-                url: "https://api.ddjingxuan.cn/api/v2/pay/pre_order",
-                headers: {
-                  // token: this.getToken
-                  token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
-                },
-                data: { id: res.data.order_no }
-              }).then(res1 => {
-                console.log(res1);
-              });
-            })
-            .catch(() => {
-              // on cancel
-            });
         })
         .catch(error => {
           // console.log(error);

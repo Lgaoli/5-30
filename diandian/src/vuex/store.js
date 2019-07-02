@@ -32,11 +32,11 @@ const store = new Vuex.Store({
         },
         //商品总价
         totlemoney(state) {
-            let supply_price = 0;
+            let market_price = 0;
             state.addCart.forEach((good) => {
-                supply_price += good.supply_price * good.goods_num
+                market_price += good.market_price * good.goods_num
             })
-            return supply_price
+            return market_price
         },
         //全选
         allcheck(state) {
@@ -67,7 +67,7 @@ const store = new Vuex.Store({
             let money = 0;
             state.addCart.forEach((good) => {
                 if (good.checked) {
-                    money += good.goods_num * good.supply_price;
+                    money += good.goods_num * good.market_price;
                 }
             })
             return money

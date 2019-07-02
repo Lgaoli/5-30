@@ -27,7 +27,6 @@ justify-content: space-around;
 margin-top: 1.25rem;
   .Sud-list {
     height: 7rem;
-    
     text-align: center;
     img {
       width: 4.6875rem;

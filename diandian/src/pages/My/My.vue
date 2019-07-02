@@ -35,34 +35,38 @@
 ">
       <div class="My-main1" style="padding:1.25rem; ">
         <div class="My-main1-header" style="border-bottom: 1px #ccc solid;padding:1.35rem;">
-          <i class="iconfont">&#xe608;</i>
-          我的订单
+          <span>
+            <img src="../../assets/img/ic_mine_Order.png" alt>
+          </span>
+          <span>我的订单</span>
         </div>
       </div>
     </div>
-    <div style="padding: 0 1.65rem 1.65rem;">
-      <div style="border-bottom: 1px #ccc solid;padding-bottom: 1.65rem;" class="My-main2">
-        <div>
-          <i class="iconfont">&#xe614;</i>
-          <p>待支付</p>
+    <div style="padding: 0 1.65rem 0rem;">
+      <router-link :to="{ path:'/Order' }">
+        <div style="border-bottom: 1px #ccc solid;padding-bottom: 1.65rem;" class="My-main2">
+          <div>
+            <i class="iconfont">&#xe614;</i>
+            <p>待支付</p>
+          </div>
+          <div>
+            <i class="iconfont">&#xe6d5;</i>
+            <p>待发货</p>
+          </div>
+          <div>
+            <i class="iconfont">&#xe6e1;</i>
+            <p>待收货</p>
+          </div>
+          <div>
+            <i class="iconfont">&#xe60b;</i>
+            <p>待评价</p>
+          </div>
+          <div>
+            <i class="iconfont">&#xe603;</i>
+            <p>退货</p>
+          </div>
         </div>
-        <div>
-          <i class="iconfont">&#xe6d5;</i>
-          <p>待发货</p>
-        </div>
-        <div>
-          <i class="iconfont">&#xe6e1;</i>
-          <p>待收货</p>
-        </div>
-        <div>
-          <i class="iconfont">&#xe60b;</i>
-          <p>待评价</p>
-        </div>
-        <div>
-          <i class="iconfont">&#xe603;</i>
-          <p>退货</p>
-        </div>
-      </div>
+      </router-link>
     </div>
     <div style class="My-main3">
       <div class="My-main3-main">

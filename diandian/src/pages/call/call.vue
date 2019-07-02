@@ -77,6 +77,11 @@ export default {
       phones: ""
     };
   },
+  computed: {
+    getToken() {
+      return this.$store.getters.getToken;
+    }
+  },
   methods: {
     getAuthCode() {
       this.sendAuthCode = false;

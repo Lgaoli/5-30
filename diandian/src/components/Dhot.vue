@@ -16,8 +16,8 @@
               <div class="hot-money">
                 <span
                   style="color: #ff7441;font-weight:600;font-size:1.25rem"
-                >￥{{item.supply_price}}</span>
-                <span style="text-decoration:line-through;color:#ccc">￥{{item.shop_price}}</span>
+                >￥{{item.market_price}}</span>
+                <span style="text-decoration:line-through;color:#ccc">￥{{item.market_price}}</span>
               </div>
             </div>
           </router-link>
@@ -38,6 +38,7 @@ export default {
     this.$axios
       .get("https://api.ddjingxuan.cn/api/v2/goods/hot")
       .then(function(res) {
+        console.log(res)
         that.hotlist = res.data;
       })
       .catch(function(error) {

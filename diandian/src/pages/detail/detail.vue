@@ -42,7 +42,7 @@
         <div class="shopdetall">
           <div v-for="(items,indexs) in shopdetall" :key="indexs">
             <div class="shopmoney">
-              <span class="supply_price">优惠价：￥ {{items.supply_price}}</span>
+              <span class="supply_price">优惠价：￥ {{items.market_price}}</span>
               <div class="share" @click="show1=true">
                 <span>
                   <i class="iconfont">&#xe63e;</i>
@@ -83,7 +83,7 @@
               <div
                 class="goods_sale_text"
                 style="  text-decoration: line-through;"
-              >原价:{{items.shop_price}}</div>
+              >原价:{{items.market_price}}</div>
               <div class="goods_sale_text">库存量:{{items.store_count}}</div>
               <div class="goods_sale_text">销量:{{items.good_sales}}</div>
             </div>

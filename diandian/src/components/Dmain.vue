@@ -42,14 +42,15 @@
                     <img :src="item.img_url" alt>
                   </div>
                   <div class="shopss">
-                    <div class="rec-list-text" style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:2;-webkit-box-orient: vertical;">
-                 {{item.goods_name}}
-                    </div>
+                    <div
+                      class="rec-list-text"
+                      style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp:2;-webkit-box-orient: vertical;"
+                    >{{item.goods_name}}</div>
 
                     <div class="rec-list-buy">
                       <div class="price">
-                        <span class="supply_price">￥{{item.supply_price}}</span>
-                        <span class="shop_price">原价:￥{{item.shop_price}}</span>
+                        <span class="supply_price">￥{{item.market_price}}</span>
+                        <span class="shop_price">原价:￥{{item.market_price}}</span>
                       </div>
                       <div class="buy">
                         <p style=" color: #ccc;">{{item.good_sales}}人购买</p>
@@ -234,7 +235,6 @@ export default {
         font-size: 1.3rem;
 
         .rec-list-text {
-        
         }
 
         .rec-list-buy {
