@@ -188,6 +188,7 @@ export default {
   },
   methods: {
     addCart(data) {
+
       this.$store.commit("addCart", data);
     },
     comment() {

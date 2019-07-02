@@ -33,10 +33,11 @@ const store = new Vuex.Store({
         //商品总价
         totlemoney(state) {
             let market_price = 0;
+            console.log(state)
             state.addCart.forEach((good) => {
                 market_price += good.market_price * good.goods_num
             })
-            return market_price
+            return market_price 
         },
         //全选
         allcheck(state) {
@@ -96,6 +97,7 @@ const store = new Vuex.Store({
         //添加到购物车并判断有没有，有则++
         addCart(state, data) {
             let Boff = true
+            
             state.addCart.forEach((good) => {
                 if (good.goods_id === data.goods_id) {
                     good.goods_num++;
@@ -104,11 +106,12 @@ const store = new Vuex.Store({
             })
             if (Boff) {
                 let goodsData = data
+                console.log(goodsData)
                 Vue.set(goodsData, 'goods_num', 1)
                 Vue.set(goodsData, 'checked', true)
                 state.addCart.push(goodsData)
             }
-            console.log(state.addCart)
+            
 
         },
         //删除商品

@@ -151,6 +151,7 @@ export default {
   },
   created() {
     this.testlist();
+    console.log(this.checkedmoney)
   },
   computed: {
     checkedgoods() {

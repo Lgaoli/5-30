@@ -101,10 +101,10 @@
                           style="font-size: 1.8125rem;
                         font-weight:600;
     color: rgb(239, 118, 52);"
-                        >现价:￥{{item.supply_price}}</p>
+                        >现价:￥{{item.market_price}}</p>
                         <p
                           style="font-size:1.1rem;color:#ccc;text-decoration:line-through;margin-left: 1.4rem;"
-                        >原价:￥{{item.shop_price}}</p>
+                        >原价:￥{{item.market_price}}</p>
                       </div>
                       <div class="goods_num">
                         <div>
@@ -247,6 +247,7 @@ export default {
   },
   created() {
     this.testlist();
+
   },
   computed: {
     //购物车的商品
