@@ -217,7 +217,7 @@ export default {
           goods_num: this.checkedgoods[i].goods_num
         });
       }
-      console.log(datas);
+      // console.log(datas);
       this.$axios({
         method: "POST",
         url: "https://api.ddjingxuan.cn/api/v2/order",
@@ -240,12 +240,12 @@ export default {
                 methods: "post",
                 url: "https://api.ddjingxuan.cn/api/v2/pay/pre_order",
                 headers: {
-                  // token: this.getToken
-                  token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
+                  token: this.getToken
+                  // token: "9ec2b9a3dd52d312b7e6c469dbc74f2d"
                 },
                 data: { id: res.data.order_no }
               }).then(res1 => {
-                console.log(res1);
+                // console.log(res1);
               });
             })
             .catch(() => {
