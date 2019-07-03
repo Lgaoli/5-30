@@ -128,7 +128,7 @@
           </div>
         </div>
         <div class="detail-buy">
-          <div @click="show=true">
+          <div @click="setMaskShow">
             <div
               @click="addCart(shopdetall1)"
               style="border-top-left-radius: 6.25rem; border-bottom-left-radius: 6.25rem;font-size: 1.25rem;"
@@ -136,7 +136,6 @@
               <p>加入购物车</p>
             </div>
           </div>
-          <van-popup v-model="show">加入购物车成功</van-popup>
 
           <div
             style=" border-top-right-radius: 6.25rem;border-bottom-right-radius: 6.25rem;background: #ef7634;font-size: 1.25rem; "
@@ -146,6 +145,14 @@
             </router-link>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- <van-popup v-model="show">加入购物车成功</van-popup> -->
+    <div class="pop" v-show="maskShow" @click="setMaskShow">
+      <div
+        style="background:#fff;padding:2.05rem;border-radius: 10px;background: rgb(239, 118, 52);color:#fff"
+      >
+        <div>成功加入购物车</div>
       </div>
     </div>
   </div>
@@ -179,7 +186,8 @@ export default {
       detail: [],
       active: 0,
       show: false,
-      show1: false
+      show1: false,
+      maskShow: false 
     };
   },
   created() {
@@ -187,8 +195,10 @@ export default {
     this.comment();
   },
   methods: {
+    setMaskShow() {
+      this.maskShow = !this.maskShow;
+    },
     addCart(data) {
-
       this.$store.commit("addCart", data);
     },
     comment() {
@@ -230,6 +240,18 @@ export default {
 };
 </script>
 <style lang="scss">
+.pop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
 .detail-header {
   border-bottom: 1px solid #ccc;
   background-color: #fff;

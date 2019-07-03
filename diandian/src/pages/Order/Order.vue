@@ -53,8 +53,11 @@ export default {
           name: "待完成"
         },
         {
+          name: "已完成"
+        },  {
           name: "退货"
         }
+
       ],
       act1: "0",
       tabContents: ["内容一", "内容二", "内容三", "内容四", "内容五"]
@@ -66,7 +69,7 @@ export default {
       console.log(this);
     },
     back() {
-       this.$router.go(-1);//返回上一层
+      this.$router.go(-1); //返回上一层
     }
   }
 };
@@ -121,7 +124,7 @@ export default {
 
         .text {
           padding: 0.704rem 0 0.704rem 0;
-          font-size: 0.469333rem;
+          font-size: 1.469333rem;
         }
       }
       .act1 {

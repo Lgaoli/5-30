@@ -72,7 +72,7 @@
               </div>-->
               <div class="shopping-cart-main1">
                 <!-- <van-checkbox v-model="item.index" @click="CheckItem(item)" class="checkedBox"></van-checkbox> -->
-                <div class="checkedBox van-checkbox">
+                <div class=" an-checkbox">
                   <div
                     class="van-checkbox__icon van-checkbox__icon--round"
                     :class="{'van-checkbox__icon--checked':item.checked}"
