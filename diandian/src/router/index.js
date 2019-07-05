@@ -13,6 +13,7 @@ const Detail = r => require.ensure([], () => r(require('../pages/detail/detail.v
 const shippingAddress = r => require.ensure([], () => r(require('../pages/shippingAddress/shippingAddress.vue')), 'shippingAddress')
 const AddressEdit = r => require.ensure([], () => r(require('../pages/shippingAddress/AddressEdit.vue')), 'AddressEdit')
 const Indent = r => require.ensure([], () => r(require('../pages/Indent/indent.vue')), 'Indent')
+const Indent1 = r => require.ensure([], () => r(require('../pages/Indent/indent1.vue')), 'Indent1')
 const Call = r => require.ensure([], () => r(require('../pages/call/call.vue')), 'Call')
 const Agency = r => require.ensure([], () => r(require('../pages/Agency/Agency.vue')), 'Agency')
 const Order = r => require.ensure([], () => r(require('../pages/Order/Order.vue')), 'Order')
@@ -95,6 +96,14 @@ const router = new Router({
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       },
       component: Indent
+    },
+    {
+      path: '/Indent1',
+      name: 'Indent1',
+      meta: {
+        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+      },
+      component: Indent1
     }, {
       path: '/Call',
       name: 'Call',
@@ -116,23 +125,37 @@ const router = new Router({
       meta: {
         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
       },
-      component:Order
+      component: Order
     }
   ],
 
 
 })
 
-router.beforeEach((to, from, next) => {
+// router.beforeEach((to, from, next) => {
 
-  if (window.localStorage.token) {
-    next()
-  } else {
-    if (window.location.href = "https://api.ddjingxuan.cn/api/v2/code/user") {
-      next()
-    } else {
+//   if (window.localStorage.token) {
+//     next()
+//   } else {
+//     if (window.location.href = "https://api.ddjingxuan.cn/api/v2/code/user") {
+//       next()
+//     } else {
+//       window.location.href = "https://api.ddjingxuan.cn/api/v2/code/user"
+//     }
+//   }
+// })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
+    if (window.localStorage.token) {  // 通过vuex state获取当前的token是否存在
+      next();
+    }
+    else {
       window.location.href = "https://api.ddjingxuan.cn/api/v2/code/user"
     }
+  }
+  else {
+    next();
   }
 })
 export default router

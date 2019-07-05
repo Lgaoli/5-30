@@ -102,17 +102,19 @@
           <i class="iconfont">&#xe632;</i>
         </div>
       </div>
-      <div class="My-main3-main">
-        <div style="display: flex;align-items: center;;">
-          <div style="width: 2.125rem;height: 2.5rem;margin-right: .625rem">
-            <img src="../../assets/img/ic_mine_Apply@2x.png" alt style="width:100%">
+      <router-link to="../Agency">
+        <div class="My-main3-main">
+          <div style="display: flex;align-items: center;;">
+            <div style="width: 2.125rem;height: 2.5rem;margin-right: .625rem">
+              <img src="../../assets/img/ic_mine_Apply@2x.png" alt style="width:100%">
+            </div>
+            <span>申请代理</span>
           </div>
-          <span>申请代理</span>
+          <div>
+            <i class="iconfont">&#xe632;</i>
+          </div>
         </div>
-        <div>
-          <i class="iconfont">&#xe632;</i>
-        </div>
-      </div>
+      </router-link>
       <div class="My-main3-main">
         <div style="display: flex;align-items: center;;">
           <div style="width: 2.125rem;height: 2.5rem;margin-right: .625rem">

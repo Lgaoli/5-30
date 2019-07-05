@@ -33,7 +33,7 @@ const store = new Vuex.Store({
         //商品总价
         totlemoney(state) {
             let market_price = 0;
-            console.log(state)
+  
             state.addCart.forEach((good) => {
                 market_price += good.market_price * good.goods_num
             })
@@ -86,7 +86,7 @@ const store = new Vuex.Store({
     },
     mutations: {
         setToken(state, token) {
-            console.log(token)
+   
             state.token = token
           
         }, del_token(state) {
@@ -106,7 +106,7 @@ const store = new Vuex.Store({
             })
             if (Boff) {
                 let goodsData = data
-                console.log(goodsData)
+         
                 Vue.set(goodsData, 'goods_num', 1)
                 Vue.set(goodsData, 'checked', true)
                 state.addCart.push(goodsData)
@@ -116,9 +116,9 @@ const store = new Vuex.Store({
         },
         //删除商品
         delCart(state, id) {
-            console.log(id)
+    
             state.addCart.forEach((good, index) => {
-                console.log(good)
+              
                 if (good.goods_id === id) {
                     state.addCart.splice(index, 1)
                     return
@@ -128,7 +128,7 @@ const store = new Vuex.Store({
         //增加商品数量
         plusCart(state, id) {
             state.addCart.forEach((good, index) => {
-                console.log(good)
+           
                 if (good.goods_id === id) {
                     if (good.goods_num >= 10) return
                     good.goods_num++
@@ -139,7 +139,7 @@ const store = new Vuex.Store({
         //减少商品数量
         minCart(state, id) {
             state.addCart.forEach((good, index) => {
-                console.log(good)
+  
                 if (good.goods_id === id) {
                     if (good.goods_num <= 1) return
                     good.goods_num--
@@ -149,7 +149,7 @@ const store = new Vuex.Store({
         },
         checkGoods(state, id) {
             state.addCart.forEach((good, index) => {
-                console.log(good)
+         
                 if (good.goods_id === id) {
                     good.checked = !good.checked
                     return
@@ -157,7 +157,7 @@ const store = new Vuex.Store({
             })
         }, checkedAll(state, checkedAll) {
             state.addCart.forEach((good, index) => {
-                console.log(good)
+            
                 good.checked = !checkedAll
             })
         }

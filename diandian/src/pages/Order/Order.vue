@@ -4,7 +4,7 @@
       <div class="back" @click="back">
         <i class="iconfont">&#xe79b;</i>
       </div>
-      <div class>订单中心</div>
+      <div class>我的订单</div>
       <div class="shop"></div>
     </div>
     <div class="Order-main">
@@ -50,14 +50,14 @@ export default {
           name: "待收货"
         },
         {
-          name: "待完成"
+          name: "待评价"
         },
         {
           name: "已完成"
-        },  {
+        },
+        {
           name: "退货"
         }
-
       ],
       act1: "0",
       tabContents: ["内容一", "内容二", "内容三", "内容四", "内容五"]
@@ -66,7 +66,7 @@ export default {
   methods: {
     selected(index) {
       this.act1 = index;
-      console.log(this);
+
     },
     back() {
       this.$router.go(-1); //返回上一层
@@ -97,7 +97,7 @@ export default {
     font-size: 2.125rem;
   }
   .back {
-    font-size: 0.682667rem;
+    font-size: 1.682667rem;
     text-align: center;
     height: 100%;
     line-height: 4.5rem;
@@ -124,7 +124,7 @@ export default {
 
         .text {
           padding: 0.704rem 0 0.704rem 0;
-          font-size: 1.469333rem;
+          font-size: 1.269333rem;
         }
       }
       .act1 {

@@ -1,5 +1,5 @@
 <template>
-  <div style="font-size:1.3rem">
+  <div style="font-size:1.3rem;background:#fff">
     <!-- <div v-for="(items,indexs) in item" :key="indexs">{{items}}</div> -->
     <div class="detail-header">
       <div class="back">

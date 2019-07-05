@@ -52,7 +52,7 @@
               <van-popup v-model="show1" position="bottom" :overlay="true">
                 <div>
                   <div class="popup" style="text-aligh:center;padding:0.8rem">
-                    <div style>
+                    <div style @click="sharefriend">
                       <img
                         src="../../assets/img/share_ic_weixin.png"
                         alt
@@ -60,7 +60,8 @@
                       >
                       <p style="padding:1.2rem">微信好友</p>
                     </div>
-                    <div>
+                    <div style="background:rgb(247, 247, 247);height:8.6rem;width:0.19rem"></div>
+                    <div @click="sharefriendqs">
                       <img
                         src="../../assets/img/share_ic_moments.png"
                         style="  width: 4.6875rem;height4.6875rem"
@@ -187,14 +188,60 @@ export default {
       active: 0,
       show: false,
       show1: false,
-      maskShow: false 
+      maskShow: false,
+      getdata: []
     };
+  },
+  beforeCreate() {
+    var that = this;
+    this.$axios({
+      method: "get",
+      url: "https://api.ddjingxuan.cn/api/v2/user/jdk",
+      headers: {
+        token: this.getToken
+        // token: "4774c94460f64a01800f2672f7230f2d"
+      },
+      params: location.href.split("#")[0]
+      // params: "http://pub.hqyulin.com/?token=4774c94460f64a01800f2672f7230f2d"
+    }).then(rest => {
+      that.getdata = rest.data;
+      console.log(that.getdata.appId);
+    });
   },
   created() {
     this.list();
     this.comment();
   },
   methods: {
+    //分享朋友
+    sharefriend() {
+      this.$axios({
+        method: "get",
+        url: "https://api.ddjingxuan.cn/api/v2/user/jdk",
+        headers: {
+          token: this.getToken
+          // token: "4774c94460f64a01800f2672f7230f2d"
+        },
+        params: location.href.split("#")[0]
+        // params: "http://pub.hqyulin.com/?token=4774c94460f64a01800f2672f7230f2d"
+      }).then(shareres => {
+        console.log(shareres);
+
+        wx.config({
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: appId, // 必填，公众号的唯一标识
+          timestamp: timestamp, // 必填，生成签名的时间戳
+          nonceStr: nonceStr, // 必填，生成签名的随机串
+          signature: signature, // 必填，签名，见附录1
+          jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage"]
+        });
+      });
+      console.log("分享朋友");
+    },
+    //分享朋友圈
+    sharefriendqs() {
+      console.log("分享朋友圈");
+    },
     setMaskShow() {
       this.maskShow = !this.maskShow;
     },
