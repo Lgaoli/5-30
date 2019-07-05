@@ -35,9 +35,8 @@ export default {
     // let str1 = '92d0d88903107f6fa5a0730b9002cf3b';
     localStorage.setItem("token", str1, 240000);
     this.$store.commit("setToken", str1);
-
     if (this.$store.state.token) {
-      this.$router.push("/");
+      window.location.href = "https://api.ddjingxuan.cn/api/v2/code/user";
     } else {
       // this.$router.replace("/login");
     }

@@ -51,14 +51,16 @@
           <div class="shopping-cart-header">
             <div>
               <i class="iconfont">&#xe611;</i>
-              <span>添加收货地址</span>
+              <span>暂无收货地址</span>
             </div>
             <div>
-              <i class="iconfont">&#xe632;</i>
+        
             </div>
           </div>
+     
         </router-link>
       </div>
+           <div data-v-78cb6dca="" style="width: 100%; height: 0.6rem; background: rgb(247, 247, 247);"></div>
     </div>
   </div>
 </template>
@@ -190,6 +192,12 @@ export default {
     justify-content: space-around;
     padding: 0.5rem;
     align-items: center;
+  }
+  .shopping-cart-header {
+    background: #fff;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

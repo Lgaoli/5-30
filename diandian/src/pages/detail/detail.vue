@@ -1,10 +1,8 @@
 <template>
   <div>
     <div class="detail-header">
-      <div class="back">
-        <router-link to="/">
-          <i class="iconfont">&#xe771;</i>
-        </router-link>
+      <div class="back" @click="prev">
+        <i class="iconfont">&#xe771;</i>
       </div>
       <div class>商品详情</div>
       <div class="shop">
@@ -213,6 +211,9 @@ export default {
     this.comment();
   },
   methods: {
+    prev() {
+      this.$router.go(-1);
+    },
     //分享朋友
     sharefriend() {
       this.$axios({
@@ -226,7 +227,6 @@ export default {
         // params: "http://pub.hqyulin.com/?token=4774c94460f64a01800f2672f7230f2d"
       }).then(shareres => {
         console.log(shareres);
-
         wx.config({
           debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
           appId: appId, // 必填，公众号的唯一标识

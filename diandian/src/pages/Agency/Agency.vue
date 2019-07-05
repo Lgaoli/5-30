@@ -1,12 +1,10 @@
 <template>
   <div class="Agency">
     <div class="Agency-header">
-      <div class="back">
-        <router-link to="/">
-          <i class="iconfont">&#xe771;</i>
-        </router-link>
+      <div class="back" @click="prev">
+        <i class="iconfont">&#xe771;</i>
       </div>
-      <div class>支付成功</div>
+      <div class>申请代理</div>
       <div class="shop"></div>
     </div>
 
@@ -19,7 +17,7 @@
       <div class="Agency-main1">
         <div class="grade">
           <div class="Agency-main1-name">等级：</div>
-          <select name="status" id="status" v-model="selected" @change="ge">
+          <select name="status" class="status" v-model="selected" @change="ge">
             <option
               :value="item.statusVal"
               v-for="(item,index) in statusArr"
@@ -29,8 +27,8 @@
         </div>
         <div class="grade">
           <div class="Agency-main1-name">省：</div>
-          <select name="province" class="form-control" v-model="province.code" @change="getCitys">
-            <option value>选择省份</option>
+          <select name="province" class="status" v-model="province.code" @change="getCitys">
+            <option :value="defaultProvince">选择省份</option>
             <option v-for="(item, index) in provinceList" :value="index" :key="index">{{ item }}</option>
           </select>
         </div>
@@ -38,12 +36,12 @@
           <div class="Agency-main1-name">市：</div>
           <select
             name="city"
-            class="form-control"
+            class="status"
             v-show="showcitys"
             v-model="city.code"
             @change="getAreas"
           >
-            <option value>选择城市</option>
+            <option :value="defaultCity">选择城市</option>
             <option v-for="(item, index) in cityList" :value="index" :key="index">{{ item }}</option>
           </select>
         </div>
@@ -51,7 +49,7 @@
           <div class="Agency-main1-name">区或县：</div>
           <select
             name="area"
-            class="form-control"
+            class="status"
             v-show="showareas"
             v-model="area.code"
             @change="getDistValue"
@@ -77,8 +75,8 @@ export default {
       showareas: true,
       selected: "",
       defaultProvince: "选择省份",
-      defaultCity: "请选择",
-      defaultArea: "请选择",
+      defaultCity: "请选择城市",
+      defaultArea: "请选择区县",
       province: {},
       city: {},
       area: {},
@@ -95,11 +93,11 @@ export default {
           statusVal: "黄金会员"
         },
         {
-          statusId: "0",
+          statusId: "2",
           statusVal: "白金会员"
         },
         {
-          statusId: "0",
+          statusId: "3 ",
           statusVal: "钻石会员"
         }
       ],
@@ -107,16 +105,18 @@ export default {
     };
   },
   created() {
-       this.selected = this.statusArr[0].statusVal;
+    this.selected = this.statusArr[0].statusVal;
     // 在组件创建之后，把默认选中项的value值赋给绑定的属性
     //如果没有这句代码，select中初始化会是空白的，默认选中就无法实现
- 
+
     this.provinceList = this.getDistricts();
     this.getDefault();
   },
   methods: {
+    prev() {
+      this.$router.go(-1);
+    },
     ge() {
-      //获取选中的优惠券
       console.log(this.selected);
     },
     getDefault() {
@@ -129,7 +129,6 @@ export default {
       //     value: this.defaultProvince
       //   };
       // }
-
       // if (this.defaultCity !== "") {
       //   this.showareas = true;
       //   let cityCode = this.getAreaCode(this.defaultCity);
@@ -139,7 +138,6 @@ export default {
       //     value: this.defaultCity
       //   };
       // }
-
       // if (this.defaultArea !== "") {
       //   let areaCode = this.getAreaCode(this.defaultArea);
       //   this.area = {
@@ -147,12 +145,6 @@ export default {
       //     value: this.defaultArea
       //   };
       // }
-    },
-    getSelectVal() {
-      this.selected = this.province.value + this.city.value + this.area.value;
-      console.log(
-        this.province.code + "-" + this.city.code + "-" + this.area.code
-      );
     },
 
     //名称转代码
@@ -192,25 +184,27 @@ export default {
     },
 
     cleanList(name) {
-      this[name] = [];
+      // this[name] = [];
     },
     getCitys(e) {
-      console.log(e)
       this.cityList = this.getDistricts(e.target.value);
 
-      this.cleanList("areas");
+      // this.cleanList("areas");
       this.province = this.setData(e.target.value, 1);
       this.areaList = [];
+      console.log(this.province.value);
       // this.showareas = false;
       // this.showcitys = true;
     },
     getAreas(e) {
       this.areaList = this.getDistricts(e.target.value);
       this.city = this.setData(e.target.value, 2);
+      console.log(this.city.value);
       // this.showareas = true;
     },
     getDistValue(e) {
       this.area = this.setData(e.target.value, 3);
+      console.log(this.area.value);
     },
     setData(code, level = 1) {
       code = parseInt(code);

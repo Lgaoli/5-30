@@ -69,6 +69,7 @@
       </router-link>
     </div>
     <div style class="My-main3">
+<router-link :to="{ path:'/AddressEdit' }">
       <div class="My-main3-main">
         <div style="display: flex;align-items: center;;">
           <div style="width: 2.125rem;height: 2.5rem;margin-right: .625rem">
@@ -80,6 +81,7 @@
           <i class="iconfont">&#xe632;</i>
         </div>
       </div>
+      </router-link>
       <div class="My-main3-main">
         <div style="display: flex;align-items: center;;">
           <div style="width: 2.125rem;height: 2.5rem;margin-right: .625rem">
@@ -288,8 +290,7 @@ export default {
     font-size: 1.8rem;
     justify-content: space-between;
     align-items: center;
-    span {
-    }
+  
   }
 }
 </style>
